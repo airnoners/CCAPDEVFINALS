@@ -14,6 +14,9 @@ exports.register = async (req, res, next) => {
   try {
     const { fullName, dlsuEmail, studentId, password } = req.body;
 
+    // 🔍 Log the raw password received from the frontend
+    console.log('🟢 Received password from frontend:', password);
+
     if (!fullName || !dlsuEmail || !studentId || !password) {
       req.flash('error', 'All fields are required');
       return res.redirect('/register');
@@ -25,13 +28,10 @@ exports.register = async (req, res, next) => {
       return res.redirect('/register');
     }
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    const newUser = new User({ fullName, dlsuEmail, studentId, password: hashedPassword });
+    // 🔥 No manual hashing — let the Mongoose model do it
+    const newUser = new User({ fullName, dlsuEmail, studentId, password });
     await newUser.save();
 
-    // ✅ Flash success and login
     req.login(newUser, (err) => {
       if (err) return next(err);
       req.flash('success_msg', 'Registration successful! Welcome to Archers Market.');
@@ -44,6 +44,7 @@ exports.register = async (req, res, next) => {
     res.redirect('/register');
   }
 };
+
 
 // Login user
 exports.login = (req, res, next) => {
