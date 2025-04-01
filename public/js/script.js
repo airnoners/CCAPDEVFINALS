@@ -148,3 +148,63 @@ function showError(form, message) {
     }
     errorElement.textContent = message;
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const loginBtn = document.querySelector('a[href="/login"]');
+    const modal = document.getElementById('loginModal');
+    const closeBtn = document.getElementById('closeLogin');
+    const loginForm = document.getElementById('loginForm');
+  
+    // Show modal
+    loginBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      modal.style.display = 'flex';
+    });
+  
+    // Close modal
+    closeBtn?.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+  
+
+  
+    // Handle login form submission
+    loginForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const formData = new FormData(form);
+  
+      try {
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(Object.fromEntries(formData))
+        });
+  
+        if (response.ok) {
+          // ✅ Login successful – refresh page to update auth UI
+          window.location.reload();
+        } else {
+          const error = await response.json();
+          showError(form, error.message || 'Login failed');
+        }
+      } catch (err) {
+        showError(form, 'Network error. Please try again.');
+      }
+    });
+  
+    // Show error message in the modal
+    function showError(form, message) {
+      let errorEl = form.querySelector('.error-message');
+      if (!errorEl) {
+        errorEl = document.createElement('div');
+        errorEl.className = 'error-message';
+        form.prepend(errorEl);
+      }
+      errorEl.textContent = message;
+    }
+  });
+  

@@ -13,7 +13,7 @@ const session = require('express-session');
 const connectDB = require('./config/db');
 const moment = require('moment');
 require("dotenv").config();
-
+require('./config/passport');
 const app = express();
 const PORT = 3000;
 

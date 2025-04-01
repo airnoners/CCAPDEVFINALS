@@ -32,9 +32,9 @@ router.post('/register', async (req, res) => {
 });
 
 // Login
-router.post('/login', passport.authenticate('local'), (req, res) => {
-  res.json({ user: req.user });
-});
+const authController = require('../controllers/authController');
+router.post('/login', authController.login);
+
 
 // Logout
 router.get('/logout', (req, res) => {

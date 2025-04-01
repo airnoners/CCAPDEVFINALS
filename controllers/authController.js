@@ -46,20 +46,25 @@ exports.register = async (req, res, next) => {
 
 // Login user
 exports.login = (req, res, next) => {
-    passport.authenticate('local', (err, user, info) => {
-        if (err) return next(err);
-        if (!user) {
-            req.flash('error', info.message);
-            return res.redirect('/login');
-        }
-        req.logIn(user, (err) => {
-            if (err) return next(err);
-            req.flash('success_msg', 'Logged in successfully');
-            const redirectUrl = req.session.returnTo || '/';
-            delete req.session.returnTo;
-            return res.redirect(redirectUrl);
-        });
-    })(req, res, next);
+  console.log('✅ /api/auth/login was hit');
+  console.log('📦 Request body:', req.body);
+  
+  passport.authenticate('local', (err, user, info) => {
+    if (err) return next(err);
+    if (!user) {
+      // If it's an AJAX login from modal (JSON response)
+      return res.status(401).json({ message: info.message || 'Login failed' });
+    }
+
+    req.logIn(user, (err) => {
+      if (err) {
+        return res.status(500).json({ message: 'Login failed' });
+      }
+
+      // If logged in from modal (JS fetch), return the user as JSON
+      return res.status(200).json({ user });
+    });
+  })(req, res, next);
 };
 
 // Logout user
