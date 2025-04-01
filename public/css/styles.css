@@ -1145,3 +1145,26 @@ footer {
     text-decoration: none;
     color: inherit;
   }
+
+  .upload-btn {
+    display: inline-block;
+    padding: 10px 18px;
+    background-color: #007f3f;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .upload-btn:hover {
+    background-color: #005c2e;
+  }
+  
+  .upload-file-name {
+    display: inline-block;
+    margin-left: 1rem;
+    font-size: 0.9rem;
+    color: #333;
+  }

@@ -28,26 +28,27 @@
         </div>
     </div>
     <div id="editProfileModal" class="modal">
-
     <div class="modal-content">
         <h2>Edit Profile</h2>
-        
+
+        <form id="editProfileForm" enctype="multipart/form-data">
         <label for="editContact">Contact Number</label>
-        <input type="text" id="editContact" placeholder="Enter contact number">
+        <input type="text" id="editContact" name="contactNumber" placeholder="Enter contact number">
 
         <label for="editFacebook">Facebook Link</label>
-        <input type="text" id="editFacebook" placeholder="Enter Facebook URL">
-
-        <label for="editProfileImage">Profile Image URL</label>
-        <input type="text" id="editProfileImage" placeholder="Enter profile image URL">
+        <input type="text" id="editFacebook" name="facebook" placeholder="Enter Facebook URL">
 
         <label for="editBio">Bio</label>
-        <textarea id="editBio" rows="3" placeholder="Tell us about yourself..."></textarea>
+        <textarea id="editBio" name="bio" rows="3" placeholder="Tell us about yourself..."></textarea>
+
+        <label for="uploadProfilePic">Upload Profile Picture</label>
+        <input type="file" id="uploadProfilePic" name="profileImage" accept="image/*">
 
         <div class="modal-actions">
-        <button class="btn-primary" id="saveProfileBtn">Save</button>
-        <button class="btn-secondary" id="cancelProfileBtn">Cancel</button>
+            <button type="submit" class="btn-primary" id="saveProfileBtn">Save</button>
+            <button type="button" class="btn-secondary" id="cancelProfileBtn">Cancel</button>
         </div>
+        </form>
     </div>
     </div>
 </section>

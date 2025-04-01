@@ -1,6 +1,24 @@
 const express = require('express');
 const router = express.Router();
 const Listing = require('../models/listing');
+const multer = require('multer');
+const path = require('path');
+
+
+// Set storage location and filename
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/uploads/');
+  },
+  filename: function (req, file, cb) {
+    const uniqueName = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    const ext = path.extname(file.originalname);
+    cb(null, uniqueName + ext);
+  }
+});
+
+const upload = multer({ storage });
+
 
 // GET all listings (API endpoint)
 router.get('/', async (req, res) => {

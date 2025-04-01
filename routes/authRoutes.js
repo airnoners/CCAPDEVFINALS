@@ -4,7 +4,50 @@ const passport = require('passport');
 const User = require('../models/user');
 const Profile = require('../models/profile');
 const authController = require('../controllers/authController');
+const multer = require('multer');
+const path = require('path');
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'public/uploads/profile-pictures');
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    const uniqueName = Date.now() + '-' + Math.round(Math.random() * 1e9) + ext;
+    cb(null, uniqueName);
+  }
+});
+
+const upload = multer({ storage });
+
+//Upload Profile Picture
+router.post('/profile/update', upload.single('profileImage'), async (req, res) => {
+  if (!req.isAuthenticated()) return res.status(401).json({ message: 'Not logged in' });
+
+  try {
+    const update = {
+      contactNumber: req.body.contactNumber,
+      facebook: req.body.facebook,
+      bio: req.body.bio,
+    };
+
+    // ✅ Add image if uploaded
+    if (req.file) {
+      update.profileImage = '/uploads/profile-pictures/' + req.file.filename;
+    }
+
+    await Profile.findOneAndUpdate(
+      { dlsuEmail: req.user.dlsuEmail },
+      update,
+      { new: true, upsert: true }
+    );
+
+    res.json({ message: 'Profile updated!' });
+  } catch (err) {
+    console.error('Upload failed:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
 // Register
 router.post('/register', authController.register);
