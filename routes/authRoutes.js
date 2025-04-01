@@ -25,13 +25,17 @@ router.post('/profile/update', upload.single('profileImage'), async (req, res) =
   if (!req.isAuthenticated()) return res.status(401).json({ message: 'Not logged in' });
 
   try {
-    const update = {
-      contactNumber: req.body.contactNumber,
-      facebook: req.body.facebook,
-      bio: req.body.bio,
-    };
+    const update = {};
 
-    // ✅ Add image if uploaded
+    if (req.body.contactNumber) update.contactNumber = req.body.contactNumber;
+    if (req.body.facebook) update.facebook = req.body.facebook;
+
+    if (req.body.bio !== undefined) {
+      // Fetch current profile to preserve bio if empty
+      const existingProfile = await Profile.findOne({ dlsuEmail: req.user.dlsuEmail });
+      update.bio = req.body.bio.trim() === '' ? existingProfile?.bio || '' : req.body.bio;
+    }
+
     if (req.file) {
       update.profileImage = '/uploads/profile-pictures/' + req.file.filename;
     }
