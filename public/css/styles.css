@@ -237,6 +237,17 @@ body {
     cursor: pointer;
 }
 
+
+.form-container {
+    background: white;
+    padding: 2.5rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06); /* ← soft shadow */
+    max-width: 500px;
+    margin: 0 auto;
+    border: 1px solid #e5e7eb; /* optional: light border */
+  }
+
 .form-group {
     margin-bottom: 1rem;
 }
@@ -425,14 +436,19 @@ footer {
 }
 
 .register-section {
-    max-width: 500px;
-    margin: 4rem auto;
-    padding: 2rem;
-    background: var(--white);
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: white;
+  padding: 2.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); /* ✅ Soft, visible shadow */
+  max-width: 500px;
+  margin: 4rem auto;
+  border: 1px solid #e5e7eb;
+  transition: box-shadow 0.3s ease;
 }
 
+.register-section:hover {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1); /* subtle glow on hover */
+}
 .register-section h2 {
     font-size: 2rem;
     margin-bottom: 1.5rem;
