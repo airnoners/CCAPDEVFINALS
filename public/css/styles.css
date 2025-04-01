@@ -661,6 +661,12 @@ footer {
     gap: 2rem;
 }
 
+.listings-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
 .profile-picture-section {
     display: flex;
     justify-content: center;

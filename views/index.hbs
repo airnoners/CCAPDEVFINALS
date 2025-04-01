@@ -31,23 +31,25 @@
 </section>
 
 <section class="listings">
-  <h2>Recent Listings</h2>
-  <div class="listings-grid">
-    {{#each listings}}
-    <div class="listing-card">
-      <a href="/product/{{this._id}}">
-        <img src="{{this.images.[0]}}" alt="{{this.title}}" class="listing-image" onerror="this.src='/images/ben.png'">
-        <div class="listing-details">
-          <h3>{{this.title}}</h3>
-          <p class="listing-price">₱{{this.price}}</p>
-          <div class="listing-meta">
-            <span class="category-badge">{{this.category}}</span>
-            <span class="date">{{formatDate this.createdAt}}</span>
+  <div class="listings-inner">
+    <h2>Recent Listings</h2>
+    <div class="listings-grid">
+      {{#each listings}}
+      <div class="listing-card">
+        <a href="/product/{{this._id}}">
+          <img src="{{this.images.[0]}}" alt="{{this.title}}" class="listing-image" onerror="this.src='/images/ben.png'">
+          <div class="listing-details">
+            <h3>{{this.title}}</h3>
+            <p class="listing-price">₱{{this.price}}</p>
+            <div class="listing-meta">
+              <span class="category-badge">{{this.category}}</span>
+              <span class="date">{{formatDate this.createdAt}}</span>
+            </div>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
+      {{/each}}
     </div>
-    {{/each}}
   </div>
 </section>
 
