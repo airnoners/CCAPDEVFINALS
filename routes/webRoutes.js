@@ -11,7 +11,10 @@ router.get('/', async (req, res) => {
             title: 'Home',
             categories: [
                 { slug: 'textbooks', name: 'Textbooks', icon: '📚', description: 'New and used course materials' },
-                { slug: 'clothes', name: 'Clothes', icon: '👕', description: 'Uniforms and merchandise' }
+                { slug: 'clothes', name: 'Clothes', icon: '👕', description: 'Clothes and other school merchandise' },
+                { slug: 'supplies', name: 'School Supplies', icon: '🔧', description: 'Calculators, drawing sets & more' },
+                { slug: 'electronics', name: 'Electronics', icon: '💻', description: 'Laptops, tablets & accessories' },
+                { slug: 'others', name: 'Others', icon: '🚀', description: 'Everything else you need' }
             ],
             listings,
             user: req.user

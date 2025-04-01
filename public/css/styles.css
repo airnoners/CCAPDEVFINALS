@@ -141,17 +141,26 @@ body {
 }
 
 .category-card {
+    background: white;
     padding: 2rem;
     border: 1px solid #e5e7eb;
-    border-radius: 8px;
+    border-radius: 12px;
     text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 220px;
 }
 
 .category-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transform: translateY(-6px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.08);
 }
 
 .category-icon {

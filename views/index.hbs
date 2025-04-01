@@ -17,7 +17,7 @@
   </div>
 </div>
 
-<section class="categories-section">
+<section class="categories">
     <h2>Popular Categories</h2>
     <div class="category-grid">
         {{#each categories}}
@@ -30,29 +30,25 @@
     </div>
 </section>
 
-<section class="featured-listings">
-    <h2>Recent Listings</h2>
-    <div class="listings-grid">
-        {{#each listings}}
-        <div class="listing-card">
-            <a href="/listings/{{this._id}}">
-                <img src="{{this.images.[0]}}" alt="{{this.title}}" onerror="this.src='/images/practice-background.png'">
-                <div class="listing-details">
-                    <h3>{{this.title}}</h3>
-                    <p class="price">₱{{this.price}}</p>
-                    <div class="listing-meta">
-                        <span class="category-badge">{{this.category}}</span>
-                        <span class="date">{{formatDate this.createdAt}}</span>
-                    </div>
-                </div>
-            </a>
+<section class="listings">
+  <h2>Recent Listings</h2>
+  <div class="listings-grid">
+    {{#each listings}}
+    <div class="listing-card">
+      <a href="/product/{{this._id}}">
+        <img src="{{this.images.[0]}}" alt="{{this.title}}" class="listing-image" onerror="this.src='/images/ben.png'">
+        <div class="listing-details">
+          <h3>{{this.title}}</h3>
+          <p class="listing-price">₱{{this.price}}</p>
+          <div class="listing-meta">
+            <span class="category-badge">{{this.category}}</span>
+            <span class="date">{{formatDate this.createdAt}}</span>
+          </div>
         </div>
-        {{else}}
-        <div class="no-listings">
-            <p>No recent listings found</p>
-        </div>
-        {{/each}}
+      </a>
     </div>
+    {{/each}}
+  </div>
 </section>
 
 {{#contentFor "scripts"}}
