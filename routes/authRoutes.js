@@ -13,9 +13,12 @@ router.post('/login', authController.login);
 
 
 // Logout
-router.get('/logout', (req, res) => {
-  req.logout();
-  res.json({ message: 'Logged out' });
+router.get('/logout', (req, res, next) => {
+  req.logout((err) => {
+    if (err) return next(err);
+    req.flash('success_msg', 'Logged out successfully');
+    res.redirect('/');
+  });
 });
 
 // Check auth status
