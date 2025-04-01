@@ -15,9 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const facebookEl = document.getElementById('profileFacebook');
     const imageEl = document.getElementById('profileImage');
     const listingsEl = document.getElementById('profileListings');
-  
+    const bioEl = document.getElementById('profileBio');
+
     // Only run this logic if on the profile page
-    if (nameEl && idEl && emailEl && contactEl && facebookEl && imageEl && listingsEl) {
+    if (nameEl && idEl && emailEl && contactEl && facebookEl && imageEl && listingsEl && bioEl) {
       fetch('/api/auth/profile/data')
         .then(res => res.json())
         .then(data => {
@@ -27,6 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
           contactEl.textContent = data.contactNumber || 'Not set';
           facebookEl.textContent = data.facebook || 'Not set';
           facebookEl.href = data.facebook || '#';
+          bioEl.textContent = data.bio || 'No bio yet.';
+          
           if (data.profileImage) {
             imageEl.src = data.profileImage;
           }
@@ -245,4 +248,57 @@ document.addEventListener('DOMContentLoaded', () => {
       errorEl.textContent = message;
     }
   });
+
+
+const modal = document.getElementById('editProfileModal');
+const bioTextarea = document.getElementById('editBio');
+
+document.getElementById('editProfileBtn').addEventListener('click', () => {
+  modal.style.display = 'flex';
+
+  // Pre-fill existing values
+  fetch('/api/auth/profile/data')
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('editContact').value = data.contactNumber || '';
+      document.getElementById('editFacebook').value = data.facebook || '';
+      document.getElementById('editProfileImage').value = data.profileImage || '';
+      bioTextarea.value = data.bio || '';
+      autoGrow(bioTextarea);
+    });
+});
+
+document.getElementById('cancelProfileBtn').addEventListener('click', () => {
+  modal.style.display = 'none';
+});
+
+document.getElementById('saveProfileBtn').addEventListener('click', async () => {
+  const body = {
+    contactNumber: document.getElementById('editContact').value,
+    facebook: document.getElementById('editFacebook').value,
+    profileImage: document.getElementById('editProfileImage').value,
+    bio: document.getElementById('editBio').value
+  };
+
+  const res = await fetch('/api/auth/profile/update', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+
+  if (res.ok) {
+    alert('Profile updated!');
+    location.reload();
+  } else {
+    alert('Update failed.');
+  }
+});
+
+// 🔁 Auto-grow bio textarea
+function autoGrow(element) {
+  element.style.height = 'auto';
+  element.style.height = (element.scrollHeight) + 'px';
+}
+bioTextarea.addEventListener('input', () => autoGrow(bioTextarea));
+
   

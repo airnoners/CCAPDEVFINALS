@@ -3,7 +3,7 @@
     <div class="profile-info">
         <div class="profile-picture-section">
             <div class="profile-picture">
-                <img src="images/default.png" alt="Profile Picture" id="profileImage">
+                <img src="/images/default.png" alt="Profile Picture" id="profileImage" onerror="this.onerror=null; this.src='/images/default.png'">
             </div>
         </div>
         
@@ -13,6 +13,7 @@
             <p>Email: <span id="profileEmail">Loading...</span></p>
             <p>Contact: <span id="profileContact">Loading...</span></p>
             <p>Facebook: <a href="#" id="profileFacebook">Loading...</a></p>
+            <p><strong>Bio:</strong> <span id="profileBio">Loading...</span></p>
         </div>
 
         <div class="profile-actions">
@@ -25,6 +26,29 @@
                 <li>Loading...</li>
             </ul>
         </div>
+    </div>
+    <div id="editProfileModal" class="modal">
+
+    <div class="modal-content">
+        <h2>Edit Profile</h2>
+        
+        <label for="editContact">Contact Number</label>
+        <input type="text" id="editContact" placeholder="Enter contact number">
+
+        <label for="editFacebook">Facebook Link</label>
+        <input type="text" id="editFacebook" placeholder="Enter Facebook URL">
+
+        <label for="editProfileImage">Profile Image URL</label>
+        <input type="text" id="editProfileImage" placeholder="Enter profile image URL">
+
+        <label for="editBio">Bio</label>
+        <textarea id="editBio" rows="3" placeholder="Tell us about yourself..."></textarea>
+
+        <div class="modal-actions">
+        <button class="btn-primary" id="saveProfileBtn">Save</button>
+        <button class="btn-secondary" id="cancelProfileBtn">Cancel</button>
+        </div>
+    </div>
     </div>
 </section>
 

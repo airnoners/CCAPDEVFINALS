@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const User = require('../models/user');
+const Profile = require('../models/profile');
 const authController = require('../controllers/authController');
 
 
@@ -44,6 +45,7 @@ router.get('/profile/data', async (req, res) => {
       profileImage: profile?.profileImage || '',
       contactNumber: profile?.contactNumber || '',
       facebook: profile?.facebook || '',
+      bio: profile?.bio || ' ',
       listings: [] // you can populate this later
     });
   } catch (err) {
@@ -52,5 +54,29 @@ router.get('/profile/data', async (req, res) => {
   }
 });
 
+router.post('/profile/update', async (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ message: 'Not authenticated' });
+  }
 
+  try {
+    const { contactNumber, facebook, profileImage, bio } = req.body;
+
+    await Profile.findOneAndUpdate(
+      { dlsuEmail: req.user.dlsuEmail }, // Find by linked email
+      {
+        contactNumber,
+        facebook,
+        profileImage,
+        bio
+      },
+      { new: true, upsert: true } // create if doesn't exist
+    );
+
+    res.json({ message: 'Profile updated successfully' });
+  } catch (err) {
+    console.error('Error updating profile:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 module.exports = router;
