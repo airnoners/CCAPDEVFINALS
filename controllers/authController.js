@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const passport = require('passport');
 const bcrypt = require('bcryptjs');
+const Profile = require('../models/profile');
 
 // Middleware to require authentication
 exports.requireAuth = (req, res, next) => {
@@ -28,9 +29,9 @@ exports.register = async (req, res, next) => {
       return res.redirect('/register');
     }
 
-    // 🔥 No manual hashing — let the Mongoose model do it
     const newUser = new User({ fullName, dlsuEmail, studentId, password });
     await newUser.save();
+    await Profile.create({ dlsuEmail });
 
     req.login(newUser, (err) => {
       if (err) return next(err);

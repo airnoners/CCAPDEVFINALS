@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Listing = require('../models/listing');
 const authController = require('../controllers/authController');
+const Profile = require('../models/profile');
 
 // Home route
 router.get('/', async (req, res) => {
@@ -65,13 +66,18 @@ router.get('/product/:id', async (req, res) => {
 });
 
 // Protected routes
-router.get('/profile', authController.requireAuth, (req, res) => {
-    res.render('profile', { 
-        title: 'My Profile',
-        user: req.user
-    });
-});
 
+router.get('/profile', async (req, res) => {
+    if (!req.isAuthenticated()) return res.redirect('/login');
+  
+    const profile = await Profile.findOne({ dlsuEmail: req.user.dlsuEmail });
+  
+    res.render('profile', {
+      user: req.user,
+      profile
+    });
+  });
+  
 router.get('/sell', authController.requireAuth, (req, res) => {
     res.render('sell', { 
         title: 'Sell an Item',

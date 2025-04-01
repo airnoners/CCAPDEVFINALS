@@ -7,8 +7,46 @@ document.addEventListener('DOMContentLoaded', () => {
     setupProtectedLinks();
     setupAuthForms();
     setupProtectedButtons();
-});
-
+  
+    const nameEl = document.getElementById('profileName');
+    const idEl = document.getElementById('profileId');
+    const emailEl = document.getElementById('profileEmail');
+    const contactEl = document.getElementById('profileContact');
+    const facebookEl = document.getElementById('profileFacebook');
+    const imageEl = document.getElementById('profileImage');
+    const listingsEl = document.getElementById('profileListings');
+  
+    // Only run this logic if on the profile page
+    if (nameEl && idEl && emailEl && contactEl && facebookEl && imageEl && listingsEl) {
+      fetch('/api/auth/profile/data')
+        .then(res => res.json())
+        .then(data => {
+          nameEl.textContent = data.fullName;
+          idEl.textContent = data.studentId;
+          emailEl.textContent = data.dlsuEmail;
+          contactEl.textContent = data.contactNumber || 'Not set';
+          facebookEl.textContent = data.facebook || 'Not set';
+          facebookEl.href = data.facebook || '#';
+          if (data.profileImage) {
+            imageEl.src = data.profileImage;
+          }
+  
+          listingsEl.innerHTML = '';
+          if (data.listings.length > 0) {
+            data.listings.forEach(item => {
+              const li = document.createElement('li');
+              li.textContent = `${item.title} – ₱${item.price}`;
+              listingsEl.appendChild(li);
+            });
+          } else {
+            listingsEl.innerHTML = '<li>No listings yet.</li>';
+          }
+        })
+        .catch(err => {
+          console.error('Failed to load profile:', err);
+        });
+    }
+  });
 // Check auth status
 async function checkAuthStatus() {
     try {
