@@ -13,6 +13,7 @@ const session = require('express-session');
 const connectDB = require('./config/db');
 const moment = require('moment');
 const flash = require('connect-flash');
+const Profile = require('./models/profile');
 require("dotenv").config();
 require('./config/passport');
 const app = express();
@@ -66,6 +67,21 @@ app.engine('hbs', exphbs.engine({
 }));
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
+
+//for dynamic profile pic
+app.use(async (req, res, next) => {
+  if (req.isAuthenticated()) {
+    const profile = await Profile.findOne({ dlsuEmail: req.user.dlsuEmail });
+
+    res.locals.user = {
+      fullName: req.user.fullName,
+      profileImage: profile?.profileImage || '/images/default.png'
+    };
+  } else {
+    res.locals.user = null;
+  }
+  next();
+});
 
 // 6. Routes (AFTER all middleware)
 app.use('/', webRoutes);
