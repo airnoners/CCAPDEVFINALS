@@ -12,6 +12,7 @@ const passport = require('passport');
 const session = require('express-session');
 const connectDB = require('./config/db');
 const moment = require('moment');
+const flash = require('connect-flash');
 require("dotenv").config();
 require('./config/passport');
 const app = express();
@@ -35,9 +36,11 @@ app.use(session({
   }
 }));
 
+
+app.use(flash()); //so we can use flash
 app.use(passport.initialize());
 app.use(passport.session());
-
+ 
 // Configure Handlebars as your view engine
 app.engine('hbs', exphbs.engine({
   extname: '.hbs',          // Use .hbs extension for files
@@ -68,6 +71,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use('/', webRoutes);
 app.use('/listings', listingRoutes);
 app.use('/api/auth', authRoutes);
+
 
 // 7. Error Handling (Optional)
 app.use((err, req, res, next) => {
