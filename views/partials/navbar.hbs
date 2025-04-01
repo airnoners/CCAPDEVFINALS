@@ -1,0 +1,24 @@
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">Archers Market</div>
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span><span></span><span></span>
+        </div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/browse">Browse</a>
+            
+            {{#if user}}
+                <a href="/sell">Sell</a>
+                <a href="/profile" class="profile-link">
+                    <img src="{{user.profileImage}}" alt="Profile" class="profile-icon">
+                    {{user.fullName}}
+                </a>
+                <a href="/logout" class="logout-link">Logout</a>
+            {{else}}
+                <a href="/login" class="login-link">Login</a>
+                <a href="/register" class="register-link">Register</a>
+            {{/if}}
+        </div>
+    </div>
+</nav>

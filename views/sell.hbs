@@ -1,0 +1,40 @@
+<section class="sell-section">
+    <h2>Post an Item</h2>
+    <form id="sellForm">
+        <div class="image-upload">
+            <div class="upload-box">
+                <p>Drag and drop images here or click to upload</p>
+                <input type="file" id="itemImage" accept="image/*" multiple>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="itemTitle">Item Title</label>
+            <input type="text" id="itemTitle" placeholder="Enter item title" required>
+        </div>
+
+        <div class="form-group">
+            <label for="itemCategory">Category</label>
+            <select id="itemCategory" required>
+                <option value="textbooks">Textbooks</option>
+                <option value="clothes">Clothes</option>
+                <option value="supplies">School Supplies</option>
+                <option value="electronics">Electronics</option>
+                <option value="others">Others</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="itemPrice">Price (*)</label>
+            <input type="number" id="itemPrice" placeholder="Enter price" required>
+        </div>
+
+        <div class="form-group">
+            <label for="itemDescription">Description</label>
+            <textarea id="itemDescription" placeholder="Describe your item..." rows="5" required></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary">Post Item</button>
+    </form>
+</section>
+

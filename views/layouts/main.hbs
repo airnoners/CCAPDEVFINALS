@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{title}} | Archers Market</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script>
+    window.authState = {
+      isAuthenticated: {{#if user}}true{{else}}false{{/if}},
+      user: {{#if user}}{
+        id: '{{user._id}}',
+        fullName: '{{user.fullName}}',
+        email: '{{user.dlsuEmail}}'
+      }{{else}}null{{/if}}
+    };
+  </script>
+</head>
+<body>
+  {{> navbar}}
+  
+  {{#if success_msg}}
+    <div class="alert alert-success">{{success_msg}}</div>
+  {{/if}}
+  {{#if error_msg}}
+    <div class="alert alert-danger">{{error_msg}}</div>
+  {{/if}}
+  
+  {{{body}}}
+  
+  {{> footer}}
+  <script src="/js/script.js"></script>
+</body>
+</html>
