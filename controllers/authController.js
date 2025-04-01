@@ -11,37 +11,38 @@ exports.requireAuth = (req, res, next) => {
 
 // Register user
 exports.register = async (req, res, next) => {
-    try {
-        const { fullName, dlsuEmail, studentId, password, confirmPassword } = req.body;
-        
-        // Validation
-        if (password !== confirmPassword) {
-            req.flash('error', 'Passwords do not match');
-            return res.redirect('/register');
-        }
+  try {
+    const { fullName, dlsuEmail, studentId, password } = req.body;
 
-        const existingUser = await User.findOne({ $or: [{ dlsuEmail }, { studentId }] });
-        if (existingUser) {
-            req.flash('error', 'Email or Student ID already exists');
-            return res.redirect('/register');
-        }
-
-        const newUser = new User({ fullName, dlsuEmail, studentId, password });
-        await newUser.save();
-        
-        // Auto-login after registration
-        req.login(newUser, (err) => {
-            if (err) return next(err);
-            req.flash('success_msg', 'Registration successful!');
-            const redirectUrl = req.session.returnTo || '/';
-            delete req.session.returnTo;
-            res.redirect(redirectUrl);
-        });
-    } catch (err) {
-        console.error(err);
-        req.flash('error', 'Registration failed');
-        res.redirect('/register');
+    if (!fullName || !dlsuEmail || !studentId || !password) {
+      req.flash('error', 'All fields are required');
+      return res.redirect('/register');
     }
+
+    const existingUser = await User.findOne({ $or: [{ dlsuEmail }, { studentId }] });
+    if (existingUser) {
+      req.flash('error', 'Email or Student ID already exists');
+      return res.redirect('/register');
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const newUser = new User({ fullName, dlsuEmail, studentId, password: hashedPassword });
+    await newUser.save();
+
+    // ✅ Flash success and login
+    req.login(newUser, (err) => {
+      if (err) return next(err);
+      req.flash('success_msg', 'Registration successful! Welcome to Archers Market.');
+      res.redirect('/');
+    });
+
+  } catch (err) {
+    console.error(err);
+    req.flash('error', 'Registration failed');
+    res.redirect('/register');
+  }
 };
 
 // Login user
