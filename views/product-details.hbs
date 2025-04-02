@@ -28,8 +28,8 @@
       <div class="product-header">
         <h1>{{listing.title}}</h1>
         <div class="price">₱{{listing.price}}</div>
-        <p><strong>Condition:</strong> {{listing.condition}}</p>
-        <div class="category-tag">{{listing.category}}</div>
+        <p><strong>Condition:</strong> {{ capitalize listing.condition }}</p>
+        <div class="category-tag">{{ capitalize listing.category }}</div>
       </div>
 
       <div class="product-status">

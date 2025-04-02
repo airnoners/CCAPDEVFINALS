@@ -65,6 +65,10 @@ app.engine('hbs', exphbs.engine({
       const momentDate = moment(date);
       if (!momentDate.isValid()) return '';
       return momentDate.format(format);
+    },
+    capitalize: function(text) {
+      if (!text) return "";
+      return text.charAt(0).toUpperCase() + text.slice(1);
     }
   }
 }));
