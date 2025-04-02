@@ -16,16 +16,32 @@
 </div>
 
 <!-- Listings Grid -->
-<div class="listings-grid" id="browseListings">
-    {{#each listings}}
-        <div class="listing-card" data-category="{{this.category}}">
-            <img src="{{this.image}}" alt="Item Image">
+<section class="listings">
+  <div class="listings-inner">
+    <h2>All Listings</h2>
+    <div class="listings-grid">
+      {{#each listings}}
+      <div class="listing-card">
+        <a href="/product/{{this._id}}">
+          <img 
+            src="{{#if this.images.[0]}}{{this.images.[0]}}{{else}}/uploads/listings/default.png{{/if}}" 
+            alt="{{this.title}}" 
+            class="listing-image" 
+            onerror="this.src='/uploads/listings/default.png'">
+          <div class="listing-details">
             <h3>{{this.title}}</h3>
-            <p class="price">$ {{this.price}}</p>
-            <a href="/listing/{{this._id}}" class="button">View Details</a>
-        </div>
-    {{/each}}
-</div>
+            <p class="listing-price">₱{{this.price}}</p>
+            <div class="listing-meta">
+              <span class="category-badge">{{this.category}}</span>
+              <span class="date">{{formatDate this.createdAt}}</span>
+            </div>
+          </div>
+        </a>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
 
 <!-- JavaScript for Filtering Listings -->
 <script>
