@@ -1,24 +1,30 @@
-<div class="back-navigation">
-  <a href="/browse">← Back to Browse</a>
-</div>
-
 <section class="product-details">
+
+  <!-- Breadcrumb -->
   <div class="breadcrumb">
     <a href="/">Home</a> > 
     <a href="/browse">Browse</a> > 
     <span class="current-page">Product Details</span>
   </div>
 
-  <div class="product-container">
-    <!-- Product Image -->
-    <div class="product-images">
+  <!-- Product layout -->
+  <div class="product-layout">
+    
+    <!-- Left side: back + image -->
+    <div class="product-left">
+      <a href="/browse" class="back-link">← Back to Browse</a>
       <div class="main-image">
         <img src="{{listing.image}}" alt="{{listing.title}}">
       </div>
+
+    <div class="image-preview-strip">
+      <img src="{{listing.image}}" class="preview-thumbnail" alt="Listing Preview">
     </div>
 
-    <!-- Product Info -->
-    <div class="product-info">
+    </div>
+
+    <!-- Right side: info -->
+    <div class="product-right">
       <div class="product-header">
         <h1>{{listing.title}}</h1>
         <div class="price">₱{{listing.price}}</div>
@@ -49,46 +55,46 @@
         </div>
       </div>
 
-<div class="action-buttons">
-  <button class="btn-primary" id="messageSellerBtn"
-    data-contact="{{listing.seller.contactNumber}}"
-    data-facebook="{{listing.seller.facebook}}">
-    <span class="icon">✉</span> Message Seller
-  </button>
+      <!-- Buttons -->
+      <div class="action-buttons">
+        <button class="btn-primary" id="messageSellerBtn"
+          data-contact="{{listing.seller.contactNumber}}"
+          data-facebook="{{listing.seller.facebook}}">
+          <span class="icon">✉</span> Message Seller
+        </button>
 
-  <button class="btn-secondary" id="shareItemBtn">
-    <span class="icon">↗</span> Share
-  </button>
-</div>
+        <button class="btn-secondary" id="shareItemBtn">
+          <span class="icon">↗</span> Share
+        </button>
+      </div>
 
-<!-- Share Popup -->
-<div id="sharePopup" class="popup success" style="display: none;">
-  🔗 Link copied to clipboard!
-</div>
+      <!-- Share Popup -->
+      <div id="sharePopup" class="popup success" style="display: none;">
+        🔗 Link copied to clipboard!
+      </div>
 
-<!-- Contact Box at Bottom -->
-<div id="contactDetailsBox" class="contact-box hidden">
-  <h3>Contact Details:</h3>
-  <p><strong>Contact Number:</strong> <span id="sellerContactDisplay"></span></p>
-  <p><strong>Facebook:</strong> <a id="sellerFacebookDisplay" href="#" target="_blank">Visit</a></p>
-</div>
+      <!-- Contact Box -->
+      <div id="contactDetailsBox" class="contact-box hidden">
+        <h3>Contact Details:</h3>
+        <p><strong>Contact Number:</strong> <span id="sellerContactDisplay"></span></p>
+        <p><strong>Facebook:</strong> <a id="sellerFacebookDisplay" href="#" target="_blank">Visit</a></p>
+      </div>
 
-<!-- Safety Notice -->
-<div class="safety-notice">
-  <h3>Safety Guidelines</h3>
-  <ul>
-    <li>✓ Meet in designated campus trading areas</li>
-    <li>✓ Verify items before payment</li>
-    <li>✓ Use DLSU email for communication</li>
-    <li>✓ Report suspicious behavior</li>
-  </ul>
-</div>
-
-</div> <!-- close product-info -->
-</div> <!-- close product-container -->
+      <!-- Safety Guidelines -->
+      <div class="safety-notice">
+        <h3>Safety Guidelines</h3>
+        <ul>
+          <li>✓ Meet in designated campus trading areas</li>
+          <li>✓ Verify items before payment</li>
+          <li>✓ Use DLSU email for communication</li>
+          <li>✓ Report suspicious behavior</li>
+        </ul>
+      </div>
+    </div> <!-- .product-right -->
+  </div> <!-- .product-layout -->
 </section>
 
-
+<!-- JS -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const messageBtn = document.getElementById("messageSellerBtn");
