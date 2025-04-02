@@ -1682,6 +1682,7 @@ body {
 .login-section {
     max-width: 450px;
     margin: 0 auto;
+    margin-top: 60px;
     padding: 2rem;
     background-color: white;
     border-radius: 8px;
