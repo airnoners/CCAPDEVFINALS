@@ -5,6 +5,11 @@ const listingSchema = new mongoose.Schema({
   description: String,
   price: Number,
   image: String,
+  condition: {
+    type: String,
+    required: true,
+    enum: ['Brand new', 'Like new', 'Lightly used', 'Used', 'Heavily used']
+  },
   seller: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   category: String,
   date: { type: Date, default: Date.now }

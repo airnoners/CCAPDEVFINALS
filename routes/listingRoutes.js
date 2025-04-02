@@ -39,13 +39,14 @@ router.post(
   upload.single('image'),
   async (req, res) => {
     try {
-      const { title, description, price, category } = req.body;
+      const { title, description, price, category, condition } = req.body;
 
       const newListing = new Listing({
         title,
         description,
         price,
         category,
+        condition,
         image: req.file ? `/uploads/listings/${req.file.filename}` : '/uploads/listings/default.png',
         seller: req.user._id,
         date: new Date().toISOString()

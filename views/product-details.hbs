@@ -4,41 +4,72 @@
 
 <section class="product-details">
   <div class="breadcrumb">
-    <a href="/">Home</a> &gt; 
-    <a href="/browse">Browse</a> &gt; 
-    <span class="current-page">{{listing.title}}</span>
+    <a href="/">Home</a> > 
+    <a href="/browse">Browse</a> > 
+    <span class="current-page">Product Details</span>
   </div>
 
   <div class="product-container">
-    <!-- Left: Image -->
-    <div class="product-image">
-      {{#if listing.image}}
+    <!-- Product Image -->
+    <div class="product-images">
+      <div class="main-image">
         <img src="{{listing.image}}" alt="{{listing.title}}">
-      {{else}}
-        <img src="/images/default.png" alt="No Image">
-      {{/if}}
+      </div>
     </div>
 
-    <!-- Right: Info -->
+    <!-- Product Info -->
     <div class="product-info">
-      <h1>{{listing.title}}</h1>
-
-      <p class="price"><strong>Price:</strong> ₱{{listing.price}}</p>
-
-      {{#if listing.condition}}
+      <div class="product-header">
+        <h1>{{listing.title}}</h1>
+        <div class="price">₱{{listing.price}}</div>
         <p><strong>Condition:</strong> {{listing.condition}}</p>
-      {{/if}}
+        <div class="category-tag">{{listing.category}}</div>
+      </div>
 
-      <p><strong>Description:</strong></p>
-      <p>{{listing.description}}</p>
+      <div class="product-status">
+        <span class="status-badge available">Available</span>
+        <span class="post-date">Posted on {{formatDate listing.date "MMM DD, YYYY"}}</span>
+      </div>
 
-      {{#if listing.category}}
-        <p><strong>Category:</strong> {{listing.category}}</p>
-      {{/if}}
+      <div class="product-description">
+        <h2>Description</h2>
+        <p>{{listing.description}}</p>
+      </div>
 
-      {{#if listing.createdAt}}
-        <p><em>Posted on {{listing.createdAt}}</em></p>
-      {{/if}}
+      <!-- Seller Info -->
+      <div class="seller-info">
+        <h2>Seller Information</h2>
+        <div class="seller-profile">
+          <img src="{{#if listing.seller.profileImage}}{{listing.seller.profileImage}}{{else}}/images/default.png{{/if}}" alt="Seller Profile" class="seller-image">
+          <div class="seller-details">
+            <h3>{{listing.seller.fullName}}</h3>
+            <p class="seller-id">ID: {{listing.seller.studentId}}</p>
+            <p class="member-since">Member since {{formatDate listing.seller.createdAt "MMMM YYYY"}}</p>
+            <div class="seller-rating">
+              <span class="stars">★★★★★</span>
+              <span class="rating-count">(5 transactions)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button class="btn-primary"><span class="icon">✉</span> Message Seller</button>
+        <button class="btn-secondary"><span class="icon">♡</span> Save Item</button>
+        <button class="btn-secondary"><span class="icon">↗</span> Share</button>
+      </div>
+
+      <!-- Safety Notice -->
+      <div class="safety-notice">
+        <h3>Safety Guidelines</h3>
+        <ul>
+          <li>✓ Meet in designated campus trading areas</li>
+          <li>✓ Verify items before payment</li>
+          <li>✓ Use DLSU email for communication</li>
+          <li>✓ Report suspicious behavior</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
