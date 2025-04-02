@@ -27,11 +27,15 @@ router.post('/profile/update', upload.single('profileImage'), async (req, res) =
   try {
     const update = {};
 
+    // Update full name in the User collection
+    if (req.body.fullName && req.body.fullName.trim() !== '') {
+      await User.findByIdAndUpdate(req.user._id, { fullName: req.body.fullName.trim() });
+    }
+
     if (req.body.contactNumber) update.contactNumber = req.body.contactNumber;
     if (req.body.facebook) update.facebook = req.body.facebook;
 
     if (req.body.bio !== undefined) {
-      // Fetch current profile to preserve bio if empty
       const existingProfile = await Profile.findOne({ dlsuEmail: req.user.dlsuEmail });
       update.bio = req.body.bio.trim() === '' ? existingProfile?.bio || '' : req.body.bio;
     }
