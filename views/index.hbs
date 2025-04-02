@@ -21,7 +21,8 @@
     <h2>Popular Categories</h2>
     <div class="category-grid">
         {{#each categories}}
-        <a href="/listings?category={{this.slug}}" class="category-card" data-category="{{this.slug}}">
+        <!-- Updated href to include category slug in the URL for filtering -->
+        <a href="/browse?category={{this.slug}}" class="category-card" data-category="{{this.slug}}">
             <div class="category-icon">{{this.icon}}</div>
             <h3>{{this.name}}</h3>
             <p>{{this.description}}</p>
@@ -67,7 +68,7 @@
         document.querySelectorAll('.category-card').forEach(card => {
             card.addEventListener('click', function() {
                 const category = this.dataset.category;
-                // You could add analytics tracking here
+                // You could add analytics tracking here if needed
             });
         });
     });
