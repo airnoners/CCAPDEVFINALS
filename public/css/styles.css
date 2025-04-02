@@ -89,6 +89,7 @@ body {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
+    text-decoration: none;
 }
 
 .btn-primary:hover {
@@ -103,6 +104,7 @@ body {
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.3s;
+    text-decoration: none;
 }
 
 .btn-secondary:hover {
@@ -224,6 +226,10 @@ body {
 
 .listing-details {
     padding: 1rem;
+}
+
+a {
+    text-decoration: none;
 }
 
 .listing-price {
@@ -460,6 +466,7 @@ footer {
       transform: translateY(-10px);
     }
   }
+  
 
 .form-group {
     margin-bottom: 1.5rem;
