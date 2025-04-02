@@ -1,15 +1,50 @@
-<h2>Browse Listings</h2>
+<h2 class="header">Browse Listings</h2>
 
+<!-- Search Bar & Category Filter -->
 <div class="search-filter">
     <input type="text" id="searchBar" placeholder="Search items...">
     <select id="categoryFilter">
-        <option value="all">All Categories</option>
-        <option value="textbooks">Textbooks</option>
-        <option value="clothes">Clothes</option>
-        <option value="supplies">School Supplies</option>
-        <option value="electronics">Electronics</option>
-    </select>
+    <option value="">All Categories</option>
+    <option value="textbooks">Textbooks</option>
+    <option value="clothes">Clothes</option>
+    <option value="supplies">School Supplies</option>
+    <option value="electronics">Electronics</option>
+    <option value="miscellaneous">Miscellaneous</option>
+</select>
+
+    <button id="searchButton">Search</button>
 </div>
 
-<div class="listings-grid" id="browseListings"></div>
+<!-- Listings Grid -->
+<div class="listings-grid" id="browseListings">
+    {{#each listings}}
+        <div class="listing-card" data-category="{{this.category}}">
+            <img src="{{this.image}}" alt="Item Image">
+            <h3>{{this.title}}</h3>
+            <p class="price">$ {{this.price}}</p>
+            <a href="/listing/{{this._id}}" class="button">View Details</a>
+        </div>
+    {{/each}}
+</div>
 
+<!-- JavaScript for Filtering Listings -->
+<script>
+    document.getElementById("searchButton").addEventListener("click", function () {
+    let searchTerm = document.getElementById("searchBar").value.toLowerCase();
+    let category = document.getElementById("categoryFilter").value;
+    let listings = document.querySelectorAll(".listing-card");
+
+    listings.forEach(card => {
+        let title = card.querySelector("h3").innerText.toLowerCase();
+        let categoryTag = card.getAttribute("data-category"); // Get category from dataset
+        let matchesSearch = title.includes(searchTerm);
+        let matchesCategory = category === "" || categoryTag === category;
+
+        if (matchesSearch && matchesCategory) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+    });
+});
+</script>
