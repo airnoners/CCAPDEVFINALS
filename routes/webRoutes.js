@@ -59,15 +59,21 @@ router.get('/product/:id', async (req, res) => {
 
 // Protected routes
 router.get('/profile', async (req, res) => {
-  if (!req.isAuthenticated()) return res.redirect('/login');
-
-  const profile = await Profile.findOne({ dlsuEmail: req.user.dlsuEmail });
-
-  res.render('profile', {
-    profile,
+    if (!req.isAuthenticated()) return res.redirect('/login');
+  
+    const profile = await Profile.findOne({ dlsuEmail: req.user.dlsuEmail });
+    const listings = await Listing.find({ seller: req.user._id });
+  
+    if (profile?.profileImage) {
+      req.user.profileImage = profile.profileImage.trim();
+    }
+  
+    res.render('profile', {
+      user: req.user,
+      profile,
+      listings
+    });
   });
-});
-
 router.get('/sell', authController.requireAuth, (req, res) => {
     res.render('sell', {
       title: 'Sell an Item',
