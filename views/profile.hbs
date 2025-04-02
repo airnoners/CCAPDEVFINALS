@@ -1,4 +1,5 @@
 <section class="profile-section">
+  <div class="profile-container">
   <h1>My Profile</h1>
   <div class="profile-info">
     
@@ -11,12 +12,12 @@
     </div>
 
     <!-- Profile Details -->
-    <div class="profile-header">
+    <div class="profile-card">
       <h2>{{user.fullName}}</h2>
-      <p>ID: <span>{{user.studentId}}</span></p>
-      <p>Email: <span>{{user.dlsuEmail}}</span></p>
-      <p>Contact: <span>{{profile.contactNumber}}</span></p>
-      <p>Facebook: <a href="{{profile.facebook}}" target="_blank">{{profile.facebook}}</a></p>
+      <p><strong>ID:</strong> <span>{{user.studentId}}</span></p>
+      <p><strong>Email:</strong> <span>{{user.dlsuEmail}}</span></p>
+      <p><strong>Contact:</strong> <span>{{profile.contactNumber}}</span></p>
+      <p><strong>Facebook:</strong> <a href="{{profile.facebook}}" target="_blank">{{profile.facebook}}</a></p>
       <p><strong>Bio:</strong> <span>{{profile.bio}}</span></p>
     </div>
 
@@ -27,7 +28,7 @@
 
     <!-- User Listings -->
     <div class="profile-listings">
-      <h3>My Listings</h3>
+      <h3 id="title">My Listings</h3>
 
       {{#if listings.length}}
         <div class="listings-grid">
@@ -78,5 +79,6 @@
         </div>
       </form>
     </div>
+  </div>
   </div>
 </section>

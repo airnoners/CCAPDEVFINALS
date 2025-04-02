@@ -562,6 +562,23 @@ footer {
 }
 
 .profile-section {
+    display: flex;
+    justify-content: center;
+    background-color: #f9fafb; /* light neutral for outer edges */
+    padding: 2rem 0;
+  }
+  
+  .profile-container {
+    background-color: #e6f4ea;
+    width: 100%;
+    max-width: 900px;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    border: none; 
+  }
+
+.profile-section {
     max-width: 800px;
     margin: 2rem auto;
     padding: 2rem;
@@ -596,6 +613,48 @@ footer {
     text-align: center;
 }
 
+#title {
+    text-align: center;
+    color: #0b6e33; /* A modern green shade */
+    font-weight: 600;
+    margin-top: 2rem;
+    font-size: 1.75rem;
+  }
+
+.profile-card {
+    background-color: #f9f9f9;
+    border-radius: 18px;
+    padding: 32px 40px;
+    max-width: 550px;
+    margin: 40px auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .profile-card:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  }
+  
+  .profile-card h2 {
+    color: #222;
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  
+  .profile-card p {
+    margin: 12px 0;
+    font-size: 15.5px;
+    color: #333;
+  }
+  
+  .profile-card a {
+    color: #006400;
+    text-decoration: underline;
+    word-break: break-word;
+  }
+  
 .profile-listings {
     margin-top: 2rem;
 }
