@@ -68,10 +68,12 @@ router.get('/profile', async (req, res) => {
 });
 
 router.get('/sell', authController.requireAuth, (req, res) => {
-  res.render('sell', {
-    title: 'Sell an Item',
+    res.render('sell', {
+      title: 'Sell an Item',
+      success: req.query.success === 'true'
+    });
   });
-});
+  
 
 // Auth routes
 router.get('/login', (req, res) => {

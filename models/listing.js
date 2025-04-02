@@ -4,10 +4,10 @@ const listingSchema = new mongoose.Schema({
   title: String,
   description: String,
   price: Number,
-  image: String, // Image file path 
-  seller: String,
-  date: String, 
+  image: String,
+  seller: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   category: String,
+  date: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model("Listing", listingSchema);

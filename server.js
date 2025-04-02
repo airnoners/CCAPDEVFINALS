@@ -91,7 +91,7 @@ app.use(async (req, res, next) => {
 
 // 6. Routes (AFTER all middleware)
 app.use('/', webRoutes);
-app.use('/listings', listingRoutes);
+app.use('/api/listings', listingRoutes);
 app.use('/api/auth', authRoutes);
 
 

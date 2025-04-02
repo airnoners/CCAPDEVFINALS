@@ -3,6 +3,7 @@ const router = express.Router();
 const Listing = require('../models/listing');
 const multer = require('multer');
 const path = require('path');
+const authController = require('../controllers/authController'); 
 
 
 // Set storage location and filename
@@ -32,23 +33,31 @@ router.get('/', async (req, res) => {
 });
 
 // POST create new listing (protected route)
-router.post('/', async (req, res) => {
-  try {
-    if (!req.user) {
-      return res.status(401).json({ message: '❌ Not authenticated' });
+router.post(
+  '/',
+  authController.requireAuth,
+  upload.single('image'),
+  async (req, res) => {
+    try {
+      const { title, description, price, category } = req.body;
+
+      const newListing = new Listing({
+        title,
+        description,
+        price,
+        category,
+        image: req.file ? `/uploads/${req.file.filename}` : null,
+        seller: req.user._id,
+        date: new Date().toISOString()
+      });
+
+      await newListing.save();
+      res.redirect('/sell?success=true');  
+    } catch (err) {
+      console.error("❌ Error creating listing:", err);
+      res.status(400).send('Error creating listing');
     }
-
-    const newListing = new Listing({
-      ...req.body,
-      seller: req.user._id
-    });
-
-    await newListing.save();
-    res.status(201).json(newListing);
-  } catch (error) {
-    console.error("❌ Error creating listing:", error);
-    res.status(400).json({ message: "❌ Bad request" });
   }
-});
+);
 
 module.exports = router;
