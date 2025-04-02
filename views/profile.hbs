@@ -24,7 +24,31 @@
     <!-- Edit Button -->
     <div class="profile-actions">
       <button class="btn-primary" id="editProfileBtn">Edit Profile</button>
+      <button class="btn-secondary" id="changePasswordBtn">Change Password</button>
     </div>
+    <!-- Change pass modal -->
+    
+    <div id="changePasswordModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <h2>Change Password</h2>
+      <form id="changePasswordForm">
+        <label for="oldPassword">Old Password</label>
+        <input type="password" id="oldPassword" name="oldPassword" required>
+
+        <label for="newPassword">New Password</label>
+        <input type="password" id="newPassword" name="newPassword" required>
+
+        <label for="confirmPassword">Confirm New Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+        <div class="modal-actions">
+          <button type="submit" class="btn-primary">Update Password</button>
+          <button type="button" class="btn-secondary" id="cancelChangePassword">Cancel</button>
+        </div>
+      </form>
+        </div>
+    </div>
+    
 
     <!-- User Listings -->
     <div class="profile-listings">
