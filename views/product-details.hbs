@@ -1,21 +1,44 @@
 <div class="back-navigation">
-    <a href="/browse">← Back to Browse</a>
+  <a href="/browse">← Back to Browse</a>
 </div>
 
 <section class="product-details">
-    <div class="breadcrumb">
-        <a href="/">Home</a> > 
-        <a href="/browse">Browse</a> > 
-        <span class="current-page">Product Details</span>
+  <div class="breadcrumb">
+    <a href="/">Home</a> &gt; 
+    <a href="/browse">Browse</a> &gt; 
+    <span class="current-page">{{listing.title}}</span>
+  </div>
+
+  <div class="product-container">
+    <!-- Left: Image -->
+    <div class="product-image">
+      {{#if listing.image}}
+        <img src="{{listing.image}}" alt="{{listing.title}}">
+      {{else}}
+        <img src="/images/default.png" alt="No Image">
+      {{/if}}
     </div>
 
-    <div class="product-container">
-        <div class="product-info">
-            <h1>{{product.title}}</h1>
-            <p>Price: {{product.price}}</p>
-            <p>Condition: {{product.condition}}</p>
-            <p>Description: {{product.description}}</p>
-        </div>
+    <!-- Right: Info -->
+    <div class="product-info">
+      <h1>{{listing.title}}</h1>
+
+      <p class="price"><strong>Price:</strong> ₱{{listing.price}}</p>
+
+      {{#if listing.condition}}
+        <p><strong>Condition:</strong> {{listing.condition}}</p>
+      {{/if}}
+
+      <p><strong>Description:</strong></p>
+      <p>{{listing.description}}</p>
+
+      {{#if listing.category}}
+        <p><strong>Category:</strong> {{listing.category}}</p>
+      {{/if}}
+
+      {{#if listing.createdAt}}
+        <p><em>Posted on {{listing.createdAt}}</em></p>
+      {{/if}}
     </div>
+  </div>
 </section>
-

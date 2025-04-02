@@ -34,6 +34,7 @@ router.get('/browse', async (req, res) => {
   try {
     const listings = await Listing.find(); // Fetch data from MongoDB
     res.render('browse', { title: 'Browse Listings', listings });
+    console.log('Listings:', listings); //for debugging
   } catch (err) {
     console.error(err);
     res.render('browse', { title: 'Browse Listings', listings: [] });

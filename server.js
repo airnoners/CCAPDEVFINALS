@@ -1,5 +1,4 @@
 const express = require("express");
-const exphbs = require('express-handlebars');
 const path = require("path");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser"); 
@@ -16,6 +15,9 @@ const flash = require('connect-flash');
 const Profile = require('./models/profile');
 require("dotenv").config();
 require('./config/passport');
+const exphbs = require('express-handlebars');
+const Handlebars = require('handlebars');
+const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
 const app = express();
 const PORT = 3000;
 
@@ -44,8 +46,9 @@ app.use(passport.session());
  
 // Configure Handlebars as your view engine
 app.engine('hbs', exphbs.engine({
-  extname: '.hbs',          // Use .hbs extension for files
-  defaultLayout: 'main',    // Main layout file (views/layouts/main.hbs)
+  extname: '.hbs',
+  defaultLayout: 'main',
+  handlebars: allowInsecurePrototypeAccess(Handlebars),
   helpers: {
     block: function(name) {
       var blocks = this._blocks || (this._blocks = {});
@@ -58,13 +61,14 @@ app.engine('hbs', exphbs.engine({
       block.push(options.fn(this));
     },
     formatDate: function(date, format) {
-      if (!date) return ''; // Handle missing date
+      if (!date) return '';
       const momentDate = moment(date);
-      if (!momentDate.isValid()) return ''; // Handle invalid date
+      if (!momentDate.isValid()) return '';
       return momentDate.format(format);
     }
   }
 }));
+
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
