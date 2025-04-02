@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
         { slug: 'clothes', name: 'Clothes', icon: '👕', description: 'Clothes and other school merchandise' },
         { slug: 'supplies', name: 'School Supplies', icon: '🔧', description: 'Calculators, drawing sets & more' },
         { slug: 'electronics', name: 'Electronics', icon: '💻', description: 'Laptops, tablets & accessories' },
-        { slug: 'others', name: 'Miscellaneous', icon: '🚀', description: 'Everything else you need' } // Changed "Others" to "Miscellaneous"
+        { slug: 'others', name: 'Miscellaneous', icon: '🚀', description: 'Everything else you need' }
       ],
       listings,
     });
@@ -29,12 +29,22 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Browse page
+// Browse page with category filter
 router.get('/browse', async (req, res) => {
   try {
-    const listings = await Listing.find(); // Fetch data from MongoDB
+    const category = req.query.category; // Get category from query string
+    let listings;
+
+    if (category) {
+      // If category is provided, filter listings by category
+      listings = await Listing.find({ category: category }); // Assuming listings have a 'category' field
+    } else {
+      // If no category, fetch all listings
+      listings = await Listing.find();
+    }
+
     res.render('browse', { title: 'Browse Listings', listings });
-    console.log('Listings:', listings); //for debugging
+    console.log('Listings:', listings); // for debugging
   } catch (err) {
     console.error(err);
     res.render('browse', { title: 'Browse Listings', listings: [] });
