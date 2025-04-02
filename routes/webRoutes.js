@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
         { slug: 'clothes', name: 'Clothes', icon: '👕', description: 'Clothes and other school merchandise' },
         { slug: 'supplies', name: 'School Supplies', icon: '🔧', description: 'Calculators, drawing sets & more' },
         { slug: 'electronics', name: 'Electronics', icon: '💻', description: 'Laptops, tablets & accessories' },
-        { slug: 'others', name: 'Others', icon: '🚀', description: 'Everything else you need' }
+        { slug: 'others', name: 'Miscellaneous', icon: '🚀', description: 'Everything else you need' } // Changed "Others" to "Miscellaneous"
       ],
       listings,
     });
@@ -48,7 +48,6 @@ router.get('/product/:id', async (req, res) => {
     if (!listing) throw new Error('Listing not found');
 
     // Fetch seller's profile data from the Profile collection
-    const Profile = require('../models/profile');
     const sellerProfile = await Profile.findOne({ dlsuEmail: listing.seller.dlsuEmail });
     
     if (sellerProfile) {
@@ -68,31 +67,30 @@ router.get('/product/:id', async (req, res) => {
   }
 });
 
-
 // Protected routes
 router.get('/profile', async (req, res) => {
-    if (!req.isAuthenticated()) return res.redirect('/login');
-  
-    const profile = await Profile.findOne({ dlsuEmail: req.user.dlsuEmail });
-    const listings = await Listing.find({ seller: req.user._id });
-  
-    if (profile?.profileImage) {
-      req.user.profileImage = profile.profileImage.trim();
-    }
-  
-    res.render('profile', {
-      user: req.user,
-      profile,
-      listings
-    });
+  if (!req.isAuthenticated()) return res.redirect('/login');
+
+  const profile = await Profile.findOne({ dlsuEmail: req.user.dlsuEmail });
+  const listings = await Listing.find({ seller: req.user._id });
+
+  if (profile?.profileImage) {
+    req.user.profileImage = profile.profileImage.trim();
+  }
+
+  res.render('profile', {
+    user: req.user,
+    profile,
+    listings
   });
+});
+
 router.get('/sell', authController.requireAuth, (req, res) => {
-    res.render('sell', {
-      title: 'Sell an Item',
-      success: req.query.success === 'true'
-    });
+  res.render('sell', {
+    title: 'Sell an Item',
+    success: req.query.success === 'true'
   });
-  
+});
 
 // Auth routes
 router.get('/login', (req, res) => {
