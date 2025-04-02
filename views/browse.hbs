@@ -24,7 +24,7 @@
       <div class="listing-card">
         <a href="/product/{{this._id}}">
           <img 
-            src="{{#if this.images.[0]}}{{this.images.[0]}}{{else}}/uploads/listings/default.png{{/if}}" 
+            src="{{#if this.image}}{{this.image}}{{else}}/uploads/listings/default.png{{/if}}" 
             alt="{{this.title}}" 
             class="listing-image" 
             onerror="this.src='/uploads/listings/default.png'">

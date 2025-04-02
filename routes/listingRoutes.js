@@ -9,7 +9,7 @@ const authController = require('../controllers/authController');
 // Set storage location and filename
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'public/uploads/');
+    cb(null, 'public/uploads/listings');
   },
   filename: function (req, file, cb) {
     const uniqueName = Date.now() + '-' + Math.round(Math.random() * 1E9);
@@ -46,7 +46,7 @@ router.post(
         description,
         price,
         category,
-        image: req.file ? `/uploads/${req.file.filename}` : null,
+        image: req.file ? `/uploads/listings/${req.file.filename}` : '/uploads/listings/default.png',
         seller: req.user._id,
         date: new Date().toISOString()
       });
