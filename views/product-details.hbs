@@ -53,7 +53,13 @@
       <div class="action-buttons">
         <button class="btn-primary"><span class="icon">✉</span> Message Seller</button>
         <button class="btn-secondary"><span class="icon">♡</span> Save Item</button>
-        <button class="btn-secondary"><span class="icon">↗</span> Share</button>
+        <button class="btn-secondary" id="shareItemBtn">
+          <span class="icon">↗</span> Share
+        </button>
+      </div>
+
+      <div id="sharePopup" class="popup success" style="display: none;">
+        🔗 Link copied to clipboard!
       </div>
 
       <!-- Safety Notice -->
@@ -69,3 +75,27 @@
     </div>
   </div>
 </section>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const shareBtn = document.getElementById("shareItemBtn");
+
+    if (shareBtn) {
+      shareBtn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          
+          const popup = document.getElementById("sharePopup");
+          popup.style.display = "block";
+
+          
+          setTimeout(() => {
+            popup.style.display = "none";
+          }, 3000);
+        } catch (err) {
+          alert("❌ Failed to copy link.");
+          console.error(err);
+        }
+      });
+    }
+  });
+</script>
