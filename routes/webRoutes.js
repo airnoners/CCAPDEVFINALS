@@ -32,17 +32,11 @@ router.get('/', async (req, res) => {
 // Browse page
 router.get('/browse', async (req, res) => {
   try {
-    const listings = await Listing.find();
-    res.render('browse', {
-      title: 'Browse Listings',
-      listings,
-    });
+    const listings = await Listing.find(); // Fetch data from MongoDB
+    res.render('browse', { title: 'Browse Listings', listings });
   } catch (err) {
     console.error(err);
-    res.render('browse', {
-      title: 'Browse Listings',
-      listings: [],
-    });
+    res.render('browse', { title: 'Browse Listings', listings: [] });
   }
 });
 
