@@ -1171,3 +1171,265 @@ footer {
     font-style: italic;
     color: #555;
   }
+
+.about-section {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.about-container h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+}
+
+.mission-section, .values-section, .contact-section {
+    margin-bottom: 2rem;
+}
+
+.mission-section h2, .values-section h2, .contact-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.value-card {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.value-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.contact-section p {
+    margin-bottom: 0.5rem;
+    color: var(--gray);
+}
+
+.contact-section a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.contact-section a:hover {
+    text-decoration: underline;
+}
+
+/* Safety Guidelines Page Styles */
+.safety-guidelines {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.safety-container h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+
+.intro-text {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--gray);
+}
+
+.guideline-section {
+    margin-bottom: 2.5rem;
+}
+
+.guideline-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.guideline-section h2 .icon {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+.guideline-section ul {
+    list-style-type: none;
+    padding-left: 0;
+    color: var(--gray);
+}
+
+.guideline-section ul li {
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.guideline-section ul li .bullet-icon {
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+.guideline-section a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.guideline-section a:hover {
+    text-decoration: underline;
+}
+
+/* Yellow Box Styles */
+.yellow-box {
+    background-color: #fff3cd; /* Light yellow background */
+    border: 1px solid #ffeeba; /* Slightly darker yellow border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 1.5rem; /* Padding inside the box */
+    margin-bottom: 2rem; /* Space below the box */
+    text-align: center; /* Center-align text */
+    color: #856404; /* Dark yellow text color */
+    font-size: 1.1rem; /* Slightly larger font size */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Emoji Styling */
+.guideline-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.guideline-section ul {
+    list-style-type: none;
+    padding-left: 0;
+    color: var(--gray);
+}
+
+.guideline-section ul li {
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Terms of Service Page Styles */
+.terms-of-service {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.terms-container h1 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.last-updated {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+.section {
+    margin-bottom: 2rem;
+}
+
+.section h2 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.section p {
+    margin-bottom: 0.75rem;
+    color: var(--gray);
+    line-height: 1.6;
+}
+
+.section ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    color: var(--gray);
+    margin-bottom: 1rem;
+}
+
+.section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.section a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.section a:hover {
+    text-decoration: underline;
+}
+
+/* Privacy Policy Page Styles */
+.privacy-policy {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.privacy-container h1 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.last-updated {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+.section {
+    margin-bottom: 2rem;
+}
+
+.section h2 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.section p {
+    margin-bottom: 0.75rem;
+    color: var(--gray);
+    line-height: 1.6;
+}
+
+.section ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    color: var(--gray);
+    margin-bottom: 1rem;
+}
+
+.section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.section a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.section a:hover {
+    text-decoration: underline;
+}
