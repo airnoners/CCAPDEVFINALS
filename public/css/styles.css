@@ -37,11 +37,33 @@ body {
 }
 
 
-.logo {
-    font-size: 1.5rem;
+.logo-combo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .logo-icon {
+    height: 48px;
+  }
+  
+  .logo-text {
+    font-size: 1.25rem;
     font-weight: bold;
-    color: var(--primary-color);
-}
+    color: #006400;
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none; /* removes underline */
+  }
+  
+  .logo-container:hover {
+    opacity: 0.9; /* optional hover effect */
+  }
+  
 
 .nav-links {
     display: flex;
@@ -90,7 +112,7 @@ body {
 .practice {
     position: relative;
     background: var(--primary-color);
-    padding: 8rem 2rem 4rem;
+    padding: 20rem 2rem 4rem;
     text-align: center;
     color: var(--white);
     overflow: hidden; 
