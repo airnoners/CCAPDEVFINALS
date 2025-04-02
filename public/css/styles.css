@@ -1676,3 +1676,67 @@ body {
     font-size: 0.9rem;
 }
 
+.contact-box {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    padding: 20px 24px;
+    border-radius: 16px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+    z-index: 9999;
+    width: 340px;
+    max-width: 90%;
+    transition: all 0.3s ease;
+    opacity: 1;
+    animation: slideUpFade 0.4s ease-out;
+  }
+  
+  .contact-box.hidden {
+    display: none;
+  }
+  
+  .contact-box h3 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 12px;
+  }
+  
+  .contact-box p {
+    margin: 10px 0;
+    font-size: 0.96rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .contact-box p strong {
+    width: 120px;
+    display: inline-block;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .contact-box a {
+    color: #0077cc;
+    text-decoration: none;
+    word-break: break-all;
+  }
+  
+  .contact-box a:hover {
+    text-decoration: underline;
+  }
+  
+  @keyframes slideUpFade {
+    from {
+      transform: translate(-50%, 20px);
+      opacity: 0;
+    }
+    to {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+  }

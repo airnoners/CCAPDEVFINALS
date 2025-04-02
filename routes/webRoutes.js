@@ -50,8 +50,12 @@ router.get('/product/:id', async (req, res) => {
     // Fetch seller's profile data from the Profile collection
     const Profile = require('../models/profile');
     const sellerProfile = await Profile.findOne({ dlsuEmail: listing.seller.dlsuEmail });
-    if (sellerProfile && sellerProfile.profileImage) {
-      listing.seller.profileImage = sellerProfile.profileImage.trim();
+    
+    if (sellerProfile) {
+      // Patch profileImage, contactNumber, and facebook directly into listing.seller
+      listing.seller.profileImage = sellerProfile.profileImage?.trim() || '';
+      listing.seller.contactNumber = sellerProfile.contactNumber || '';
+      listing.seller.facebook = sellerProfile.facebook || '';
     }
 
     res.render('product-details', {
