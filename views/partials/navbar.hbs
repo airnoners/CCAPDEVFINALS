@@ -11,7 +11,8 @@
             {{#if user}}
                 <a href="/sell">Sell</a>
                 <a href="/profile" class="profile-link">
-                    <img src="{{user.profileImage}}" alt="Profile" class="profile-icon" onerror="this.src='/images/default.png'">
+                    <img src="{{user.profileImage}}" class="profile-icon" alt="Profile"
+                        onerror="this.src='/images/default.png'">
                     {{user.fullName}}
                 </a>
                 <a href="/api/auth/logout" class="logout-link">Logout</a>

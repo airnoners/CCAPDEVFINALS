@@ -68,20 +68,27 @@ app.engine('hbs', exphbs.engine({
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
-//for dynamic profile pic
 app.use(async (req, res, next) => {
-  if (req.isAuthenticated()) {
-    const profile = await Profile.findOne({ dlsuEmail: req.user.dlsuEmail });
+  res.locals.user = null;
 
-    res.locals.user = {
-      fullName: req.user.fullName,
-      profileImage: profile?.profileImage || '/images/default.png'
-    };
-  } else {
-    res.locals.user = null;
+  if (req.isAuthenticated && req.isAuthenticated()) {
+    try {
+      const profile = await Profile.findOne({ dlsuEmail: req.user.dlsuEmail });
+
+      res.locals.user = {
+        _id: req.user._id,
+        fullName: req.user.fullName,
+        dlsuEmail: req.user.dlsuEmail,
+        profileImage: profile?.profileImage?.trim() || '/images/default.png'
+      };
+    } catch (err) {
+      console.error('Profile fetch error:', err);
+    }
   }
+
   next();
 });
+
 // 6. Routes (AFTER all middleware)
 app.use('/', webRoutes);
 app.use('/listings', listingRoutes);
