@@ -43,21 +43,27 @@ router.get('/browse', async (req, res) => {
 
 // Product details page
 router.get('/product/:id', async (req, res) => {
-    try {
-      const listing = await Listing.findById(req.params.id).populate('seller'); 
-  
-      if (!listing) throw new Error('Listing not found');
-  
-      res.render('product-details', {
-        title: listing.title || 'Product Details',
-        listing
-      });
-    } catch (err) {
-      console.error(err);
-      res.status(404).render('404', { title: 'Product Not Found' });
+  try {
+    const listing = await Listing.findById(req.params.id).populate('seller');
+    if (!listing) throw new Error('Listing not found');
+
+    // Fetch seller's profile data from the Profile collection
+    const Profile = require('../models/profile');
+    const sellerProfile = await Profile.findOne({ dlsuEmail: listing.seller.dlsuEmail });
+    if (sellerProfile && sellerProfile.profileImage) {
+      listing.seller.profileImage = sellerProfile.profileImage.trim();
     }
-  });
-  
+
+    res.render('product-details', {
+      title: listing.title || 'Product Details',
+      listing
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(404).render('404', { title: 'Product Not Found' });
+  }
+});
+
 
 // Protected routes
 router.get('/profile', async (req, res) => {
