@@ -21,7 +21,8 @@
     <h2>Popular Categories</h2>
     <div class="category-grid">
         {{#each categories}}
-        <a href="/listings?category={{this.slug}}" class="category-card" data-category="{{this.slug}}">
+        <!-- Updated href to go directly to /browse, not filtering by category -->
+        <a href="/browse" class="category-card" data-category="{{this.slug}}">
             <div class="category-icon">{{this.icon}}</div>
             <h3>{{this.name}}</h3>
             <p>{{this.description}}</p>
@@ -29,6 +30,7 @@
         {{/each}}
     </div>
 </section>
+
 
 <section class="listings">
   <div class="listings-inner">
