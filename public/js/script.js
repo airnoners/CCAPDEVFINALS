@@ -261,10 +261,14 @@ document.getElementById('editProfileForm').addEventListener('submit', async (e) 
     const data = await res.json();
   
     if (res.ok) {
-      alert('Profile updated!');
-      location.reload();
-    } else {
-      alert('Update failed: ' + data.message);
+      // Close the modal
+      document.getElementById('editProfileModal').style.display = 'none';
+    
+      // Show popup
+      showPopup('✅ Profile updated!', 'success', 'profilePopup');
+    
+      // Reload after a short delay
+      setTimeout(() => location.reload(), 2000);
     }
   });
   
@@ -276,9 +280,8 @@ function autoGrow(element) {
 }
 bioTextarea.addEventListener('input', () => autoGrow(bioTextarea));
 
-
-function showPopup(message, type = 'success') {
-  const popup = document.getElementById('registerPopup');
+function showPopup(message, type = 'success', popupId = 'registerPopup') {
+  const popup = document.getElementById(popupId);
   if (!popup) return;
 
   popup.textContent = message;
@@ -286,9 +289,8 @@ function showPopup(message, type = 'success') {
   popup.style.display = 'block';
 
   setTimeout(() => {
-      popup.style.display = 'none';
+    popup.style.display = 'none';
   }, 3000);
 }
-
 
   
