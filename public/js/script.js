@@ -102,36 +102,39 @@ function setupAuthForms() {
     
     // Register form
     document.getElementById('registerForm')?.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const form = e.target;
-        
-        if (form.password.value !== form.confirmPassword.value) {
-            showError(form, 'Passwords do not match');
-            return;
-        }
-        
-        try {
-            const response = await fetch('/api/auth/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    fullName: form.fullName.value,
-                    dlsuEmail: form.dlsuEmail.value,
-                    studentId: form.studentId.value,
-                    password: form.password.value
-                })
-            });
-            
-            if (response.ok) {
-                window.location.href = getRedirectUrl() || '/';
-            } else {
-                const error = await response.json();
-                showError(form, error.message || 'Registration failed');
-            }
-        } catch (error) {
-            showError(form, 'Network error. Please try again.');
-        }
-    });
+      e.preventDefault();
+      const form = e.target;
+  
+      if (form.password.value !== form.confirmPassword.value) {
+          showPopup('❌ Passwords do not match', 'error');
+          return;
+      }
+  
+      try {
+          const response = await fetch('/api/auth/register', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                  fullName: form.fullName.value,
+                  dlsuEmail: form.dlsuEmail.value,
+                  studentId: form.studentId.value,
+                  password: form.password.value
+              })
+          });
+  
+          if (response.ok) {
+              showPopup('✅ Registration successful! Redirecting...', 'success');
+              setTimeout(() => {
+                  window.location.href = getRedirectUrl() || '/';
+              }, 2000);
+          } else {
+              const error = await response.json();
+              showPopup(`⚠️ ${error.message || 'Registration failed'}`, 'error');
+          }
+      } catch (error) {
+          showPopup('❌ Network error. Please try again.', 'error');
+      }
+  });
     
     // Logout button
     document.getElementById('logoutBtn')?.addEventListener('click', async () => {
@@ -274,7 +277,18 @@ function autoGrow(element) {
 bioTextarea.addEventListener('input', () => autoGrow(bioTextarea));
 
 
+function showPopup(message, type = 'success') {
+  const popup = document.getElementById('registerPopup');
+  if (!popup) return;
 
+  popup.textContent = message;
+  popup.className = `popup ${type}`;
+  popup.style.display = 'block';
+
+  setTimeout(() => {
+      popup.style.display = 'none';
+  }, 3000);
+}
 
 
   

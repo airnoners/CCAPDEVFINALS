@@ -437,13 +437,11 @@ footer {
   object-fit: cover;
   transition: opacity 0.3s ease;
 }
-.popup.success {
+.popup {
     position: fixed;
-    top: 20px; /* a bit down from the top */
-    right: 45%;
+    top: 20px;
+    left: 45%;
     transform: translateX(50%);
-    background: #d4edda;
-    color: #155724;
     padding: 12px 18px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -451,7 +449,23 @@ footer {
     font-weight: bold;
     animation: fadeInOut 4s ease-in-out forwards;
   }
-
+  
+  /* Colors by type */
+  .popup.success {
+    background: #d4edda;
+    color: #155724;
+  }
+  
+  .popup.error {
+    background: #f8d7da;
+    color: #721c24;
+  }
+  
+  .popup.warning {
+    background: #fff3cd;
+    color: #856404;
+  }
+  
   @keyframes fadeInOut {
     0% {
       opacity: 0;

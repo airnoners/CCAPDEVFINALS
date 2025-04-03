@@ -15,36 +15,42 @@ exports.register = async (req, res, next) => {
   try {
     const { fullName, dlsuEmail, studentId, password } = req.body;
 
-    // 🔍 Log the raw password received from the frontend
     console.log('🟢 Received password from frontend:', password);
+    console.log('📨 Incoming register request:', req.body);
 
     if (!fullName || !dlsuEmail || !studentId || !password) {
-      req.flash('error', 'All fields are required');
-      return res.redirect('/register');
+      return res.status(400).json({ message: 'All fields are required' });
     }
 
     const existingUser = await User.findOne({ $or: [{ dlsuEmail }, { studentId }] });
     if (existingUser) {
-      req.flash('error', 'Email or Student ID already exists');
-      return res.redirect('/register');
+      return res.status(409).json({ message: 'Email or Student ID already exists' });
     }
 
     const newUser = new User({ fullName, dlsuEmail, studentId, password });
     await newUser.save();
-    await Profile.create({ dlsuEmail });
+    
+    const existingProfile = await Profile.findOne({ dlsuEmail });
+    if (!existingProfile) {
+      await Profile.create({ dlsuEmail });
+    }
 
     req.login(newUser, (err) => {
-      if (err) return next(err);
-      req.flash('success_msg', 'Registration successful! Welcome to Archers Market.');
-      res.redirect('/');
+      if (err) return res.status(500).json({ message: 'Login after registration failed' });
+
+      return res.status(200).json({ user: {
+        _id: newUser._id,
+        fullName: newUser.fullName,
+        dlsuEmail: newUser.dlsuEmail
+      }});
     });
 
   } catch (err) {
     console.error(err);
-    req.flash('error', 'Registration failed');
-    res.redirect('/register');
+    res.status(500).json({ message: 'Registration failed due to server error' });
   }
 };
+
 
 
 // Login user
