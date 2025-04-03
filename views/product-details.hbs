@@ -68,7 +68,17 @@
 </button>
 
   {{#if (eq listing.seller._id user._id)}}
-    <button type="button" id="openEditModal" class="btn-secondary">
+      <button
+      type="button"
+      id="openEditModal"
+      class="btn-secondary"
+      data-id="{{listing._id}}"
+      data-title="{{listing.title}}"
+      data-description="{{listing.description}}"
+      data-price="{{listing.price}}"
+      data-category="{{listing.category}}"
+      data-condition="{{listing.condition}}"
+    >
       <span class="icon">✏️</span> Edit
     </button>
 
@@ -125,8 +135,8 @@
 <div id="editListingModal" class="modal" style="display: none;">
   <div class="modal-content">
     <h2>Edit Listing</h2>
-    <form id="editListingForm" enctype="multipart/form-data">
-      
+    <form id="editListingForm" enctype="multipart/form-data" method="POST" action="/listing/{{listing._id}}/edit">
+
       <label for="editTitle">Title</label>
       <input type="text" id="editTitle" name="title" placeholder="Enter title" required>
 
@@ -162,9 +172,9 @@
     </div>
   </div>
       <div class="file-upload-wrapper">
-        <label for="editImage" class="custom-upload-button">Upload Image</label>
-        <span id="editFileName">No file chosen</span>
-        <input type="file" id="editImage" name="image" accept="image/*" hidden>
+          <label for="editImage" class="custom-upload-button">Upload Image</label>
+          <span id="editFileName">No file chosen</span>  <!-- This will display the selected file name -->
+          <input type="file" id="editImage" name="image" accept="image/*" hidden>
       </div>
 
       <div class="modal-actions">
@@ -174,6 +184,8 @@
     </form>
   </div>
 </div>
+
+<div id="editListingPopup" class="popup success" style="display: none;"></div>
 
 </section>
 
@@ -257,5 +269,90 @@ document.addEventListener("DOMContentLoaded", () => {
     editModal.style.display = 'none';
   });
 
+
+  editBtn?.addEventListener('click', () => {
+  editModal.style.display = 'flex';
+
+  // Prefill values
+  document.getElementById('editTitle').value = editBtn.dataset.title || '';
+  document.getElementById('editDescription').value = editBtn.dataset.description || '';
+  document.getElementById('editPrice').value = editBtn.dataset.price || '';
+  document.getElementById('editCategory').value = editBtn.dataset.category || '';
+  document.getElementById('editCondition').value = editBtn.dataset.condition || '';
+
+  // Optional: Set form action if you're submitting directly
+  document.getElementById('editListingForm').action = `/listing/${editBtn.dataset.id}/edit`;
+});
+
+});
+
+
+
+
+const editForm = document.getElementById('editListingForm');
+
+editForm?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(editForm);
+  const actionUrl = editForm.action;
+
+  try {
+    const res = await fetch(actionUrl, {
+      method: 'POST',
+      body: formData
+    });
+
+    const result = await res.text(); // since your server likely returns a redirect or HTML
+    if (res.ok) {
+      editModal.style.display = 'none';
+      showPopup('✅ Listing updated successfully!', 'success', 'editListingPopup');
+      setTimeout(() => location.reload(), 1500); // or redirect
+    } else {
+      showPopup('❌ Failed to update listing', 'error', 'editListingPopup');
+    }
+  } catch (err) {
+    console.error(err);
+    showPopup('❌ Server error. Please try again.', 'error', 'editListingPopup');
+  }
+});
+
+
+function showPopup(message, type = 'success', popupId = 'editListingPopup') {
+  const popup = document.getElementById(popupId);
+  if (!popup) return;
+
+  popup.textContent = message;
+  popup.className = `popup ${type}`;
+  popup.style.display = 'block';
+
+  setTimeout(() => {
+    popup.style.display = 'none';
+  }, 3000);
+}
+
+//file upload
+document.addEventListener('DOMContentLoaded', () => {
+  const fileInput = document.getElementById('editImage');
+  const fileNameSpan = document.getElementById('editFileName');
+
+  // When a file is selected
+  if (fileInput && fileNameSpan) {
+    fileInput.addEventListener('change', () => {
+      const file = fileInput.files[0];
+      const fileName = file ? file.name : 'No file chosen';
+
+      // Separate the file name and the extension
+      const fileNameWithoutExt = fileName.substring(0, fileName.lastIndexOf('.'));
+      const fileExtension = fileName.substring(fileName.lastIndexOf('.'));
+
+      // Truncate the file name to 20 characters (excluding extension)
+      const truncatedFileName = fileNameWithoutExt.length > 20 
+        ? fileNameWithoutExt.substring(0, 20) + '...' + fileExtension
+        : fileName;
+
+      fileNameSpan.textContent = truncatedFileName; // Update the span with the truncated file name
+    });
+  }
 });
 </script>
