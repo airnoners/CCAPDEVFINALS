@@ -111,6 +111,111 @@ body {
     background: var(--gray-light);
 }
 
+.btn-secondary.edit-btn {
+    font-size: 0.875rem; /* slightly smaller */
+  }
+
+.btn-outline {
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .btn-gray {
+    border: 1px solid #ced4da;
+    color: #212529;
+    background-color: #fff;
+  }
+  
+  .btn-gray:hover {
+    background-color: #f1f3f5;
+    border-color: #adb5bd;
+  }
+  
+  .btn-green {
+    border-color: #198754;
+    color: #198754;
+    background-color: #fff;
+  }
+  
+  .btn-green:hover {
+    background-color: #d1e7dd;
+    border-color: #146c43;
+  }
+  
+  .btn-red {
+    border-color: #dc3545;
+    color: #dc3545;
+    background-color: #fff;
+  }
+  
+  .btn-red:hover {
+    background-color: #f8d7da;
+    border-color: #b02a37;
+  }
+  
+
+  .delete-confirm-btn {
+    background-color: transparent;
+    color: #dc3545;
+    border: 2px solid #dc3545;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.25s ease;
+  }
+  
+  .delete-confirm-btn:hover {
+    background-color: #dc3545;
+    color: #fff;
+  }
+
+
+  .large-modal {
+    max-width: 600px;
+    width: 90%;
+    padding: 2rem 2.5rem;
+    font-size: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  }
+  
+  .large-modal h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .large-modal p {
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+
+  .btn-cancel {
+    background-color: white;
+    color: #333;
+    border: 1.5px solid #ccc;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s;
+  }
+  
+  .btn-cancel:hover {
+    background-color: #f5f5f5;
+    color: #333;
+    border-color: #999;
+  }
 .practice {
     position: relative;
     background: var(--primary-color);
@@ -977,7 +1082,7 @@ footer {
 
 .action-buttons {
     display: flex;
-    gap: 1rem;
+    gap: 0.5rem; 
     margin-top: 1rem;
 }
 
@@ -1912,4 +2017,45 @@ body {
       transform: translate(-50%, 0);
       opacity: 1;
     }
+  }
+
+
+  #editListingModal .modal-content {
+    max-width: 550px;
+    padding: 2rem;
+    border-radius: 10px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  #editListingModal form input,
+  #editListingModal form textarea,
+  #editListingModal form select {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  #editListingModal form textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  #editListingModal .form-group {
+    margin-bottom: 1.25rem;
+  }
+  
+  #editListingModal .file-upload-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  #editListingModal .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
   }

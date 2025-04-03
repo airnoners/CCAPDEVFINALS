@@ -70,7 +70,8 @@ app.engine('hbs', exphbs.engine({
     capitalize: function(text) {
       if (!text) return "";
       return text.charAt(0).toUpperCase() + text.slice(1);
-    }
+    },
+    eq: (a, b) => String(a) === String(b)
   }
 }));
 

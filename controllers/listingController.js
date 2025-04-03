@@ -12,7 +12,7 @@ const getListings = async (req, res) => {
 
 const getListingById = async (req, res) => {
     try {
-      const listing = await Listing.findById(req.params.id);
+      const listing = await Listing.findById(req.params.id).populate('seller');
       if (!listing) {
         return res.status(404).render("error", { message: "Listing not found" });
       }
@@ -22,6 +22,7 @@ const getListingById = async (req, res) => {
       res.status(500).send("Server error");
     }
   };
+  
   exports.createListing = async (req, res) => {
     try {
       if (!req.user) return res.status(401).json({ error: 'Not authenticated' });
