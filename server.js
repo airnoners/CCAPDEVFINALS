@@ -7,6 +7,7 @@ const Listing = require("./models/listing");
 const webRoutes = require('./routes/webRoutes');
 const listingRoutes = require('./routes/listingRoutes');
 const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
 const passport = require('passport');
 const session = require('express-session');
 const connectDB = require('./config/db');
@@ -101,6 +102,8 @@ app.use(async (req, res, next) => {
 app.use('/', webRoutes);
 app.use('/api/listings', listingRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
+
 
 
 // 7. Error Handling (Optional)

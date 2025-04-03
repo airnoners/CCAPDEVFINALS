@@ -81,3 +81,4 @@ exports.logout = (req, res) => {
 exports.getStatus = (req, res) => {
     res.json({ user: req.user || null });
 };
+

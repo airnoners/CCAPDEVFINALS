@@ -227,16 +227,18 @@ document.getElementById('editProfileBtn').addEventListener('click', () => {
   modal.style.display = 'flex';
 
   // Pre-fill existing values
-  fetch('/api/auth/profile/data')
+  fetch('/api/user/data')
     .then(res => res.json())
     .then(data => {
+      document.getElementById('editFullName').value = data.fullName || '';
+
       document.getElementById('editContact').value = data.contactNumber || '';
       document.getElementById('editFacebook').value = data.facebook || '';
-      document.getElementById('editProfileImage').value = data.profileImage || '';
       bioTextarea.value = data.bio || '';
       autoGrow(bioTextarea);
     });
 });
+
 
 document.getElementById('cancelProfileBtn').addEventListener('click', () => {
   modal.style.display = 'none';
@@ -247,10 +249,11 @@ document.getElementById('editProfileForm').addEventListener('submit', async (e) 
     const form = e.target;
     const formData = new FormData(form);
   
-    const res = await fetch('/api/auth/profile/update', {
+    const res = await fetch('/api/user/update', {
       method: 'POST',
       body: formData
     });
+    
   
     const data = await res.json();
   
@@ -271,29 +274,7 @@ function autoGrow(element) {
 bioTextarea.addEventListener('input', () => autoGrow(bioTextarea));
 
 
-document.getElementById('profileImageForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-  
-    const formData = new FormData();
-    const fileInput = document.getElementById('uploadProfilePic');
-  
-    if (fileInput.files.length === 0) return alert('Please select an image');
-  
-    formData.append('profileImage', fileInput.files[0]);
-  
-    const res = await fetch('/api/auth/profile/upload', {
-      method: 'POST',
-      body: formData
-    });
-  
-    const data = await res.json();
-    if (res.ok) {
-      alert('Profile picture updated!');
-      location.reload(); // or update DOM dynamically
-    } else {
-      alert('Upload failed.');
-    }
-  });  
+
 
 
   
