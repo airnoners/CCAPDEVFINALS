@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="preload" as="image" href="/images/practice-background.webp">
   <title>{{title}} | Archers Market</title>
   <link rel="stylesheet" href="/css/styles.css">
   <script>
@@ -47,3 +46,8 @@
   <script src="/js/script.js"></script>
 </body>
 </html>
+<script>
+  // Force preload of background image used in CSS
+  const bg = new Image();
+  bg.src = '/images/practice-background.webp';
+</script>
