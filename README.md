@@ -1,2 +1,80 @@
-# CCAPDEVFINALS
- 
+# 🏹 Archers Market
+
+**Archers Market** is a full-stack web application built for DLSU students to **buy, sell, and browse** items like textbooks, clothes, gadgets, and more. It provides secure registration, user profiles, listing management, and seller interaction.
+
+---
+
+## 🚀 Features
+
+- 🔐 **Authentication** – Register/login with DLSU credentials
+- 👤 **Profile System** – Upload profile pics, contact info, and social links
+- 📦 **Product Listings** – Add, view, and manage items with images and categories
+- 🔍 **Browse + Filter** – Search by keywords and categories
+- 📄 **Product Details** – See item description and seller info
+- 🛠️ **Edit Listings** – Sellers can update their posted items
+- 📱 **Responsive Design** – Fully mobile-friendly
+
+---
+
+## 🏗️ Tech Stack
+
+### Frontend
+- HTML, CSS, JavaScript
+- Handlebars (templating engine)
+
+### Backend
+- Node.js + Express
+- MongoDB (via Mongoose)
+- Passport.js (for authentication)
+- Multer (file uploads)
+
+---
+
+
+
+## 🛠️ Setup Instructions
+
+1. **Clone the repository**  
+```bash
+git clone https://github.com/your-username/archers-market.git
+cd archers-market
+```
+
+2. **Install dependencies**  
+```bash
+npm install
+```
+
+3. **Set up environment variables**  
+Create a `.env` file in the root with the following:
+```
+MONGODB_URI=mongodb://localhost:27017/archersmarket
+SESSION_SECRET=supersecretkey
+NODE_ENV=development
+```
+
+4. **Start MongoDB (if local)**  
+```bash
+mongod
+```
+
+5. **Run the server**
+```bash
+npm start
+# or
+node server.js
+```
+
+6. **Visit the site**
+```
+http://localhost:3000
+```
+
+---
+##  **Deployed Site Link**
+
+https://ccapdevfinals.onrender.com
+
+---
+
+

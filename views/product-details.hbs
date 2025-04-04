@@ -82,11 +82,11 @@
       <span class="icon">✏️</span> Edit
     </button>
 
-    <form action="/listing/{{listing._id}}/delete" method="POST" id="deleteForm"></form>
-      <button class="btn-outline btn-red" id="openDeleteModal">
-        <span class="icon">🗑️</span> Delete
-      </button>
-    </form>
+    <button class="btn-outline btn-red" id="openDeleteModal" data-id="{{listing._id}}">
+      <span class="icon">🗑️</span> Delete
+    </button>
+
+
   {{/if}}
 </div>
 
@@ -234,23 +234,22 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // 🔴 Delete modal logic
-  const openDeleteBtn = document.getElementById("openDeleteModal");
-  const deleteModal = document.getElementById("deleteModal");
-  const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
-  const deleteForm = document.getElementById("deleteForm");
+ const openDeleteBtn = document.getElementById("openDeleteModal");
+const deleteModal = document.getElementById("deleteModal");
+const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
+const deleteForm = document.getElementById("deleteForm");
 
-  if (openDeleteBtn && deleteModal && cancelDeleteBtn && deleteForm) {
-    openDeleteBtn.addEventListener("click", () => {
-      deleteModal.style.display = "flex";
-    });
+if (openDeleteBtn && deleteModal && cancelDeleteBtn && deleteForm) {
+  openDeleteBtn.addEventListener("click", () => {
+    const listingId = openDeleteBtn.dataset.id;
+    deleteForm.action = `/api/listings/${listingId}/delete`;  // ✅ sets route correctly
+    deleteModal.style.display = "flex";
+  });
 
-    cancelDeleteBtn.addEventListener("click", () => {
-      deleteModal.style.display = "none";
-    });
-
-    // Set the action for delete dynamically
-    deleteForm.action = `/listing/{{listing._id}}/delete`; // Handlebars will render this
-  }
+  cancelDeleteBtn.addEventListener("click", () => {
+    deleteModal.style.display = "none";
+  });
+}
 
   //edit modal
   const editBtn = document.querySelector('#openEditModal'); // give your edit button this id

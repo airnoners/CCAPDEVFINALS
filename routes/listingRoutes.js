@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Listing = require('../models/listing');
-const multer = require('multer');
 const path = require('path');
-const authController = require('../controllers/authController'); 
-
+const multer = require('multer');
+const authController = require('../controllers/authController');
+const listingController = require('../controllers/listingController'); // ✅ add this
 
 // Set storage location and filename
 const storage = multer.diskStorage({
@@ -20,7 +20,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-
 // GET all listings (API endpoint)
 router.get('/', async (req, res) => {
   try {
@@ -32,7 +31,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// POST create new listing (protected route)
+// POST create new listing
 router.post(
   '/',
   authController.requireAuth,
@@ -60,5 +59,22 @@ router.post(
     }
   }
 );
+
+// POST update listing
+router.post(
+  '/:id/edit',
+  authController.requireAuth,
+  upload.single('image'),
+  listingController.editListing
+);
+
+
+// DELETE listing
+router.post(
+  '/:id/delete',
+  authController.requireAuth,
+  listingController.deleteListing
+);
+
 
 module.exports = router;
