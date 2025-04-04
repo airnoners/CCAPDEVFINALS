@@ -895,14 +895,14 @@ footer {
   }
   
   .search-filter button {
-    background-color: #0b6e4f;
+    background-color: #28a745;
     color: white;
     border: none;
     cursor: pointer;
   }
   
   .search-filter button:hover {
-    background-color: #095e44;
+    background-color: #1fa33e;
   }
 
   
@@ -1954,6 +1954,35 @@ body {
     font-size: 0.9rem;
 }
 
+
+.login-title {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .login-button-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  .large-btn {
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+  }
+  
+
+  .register-message {
+    text-align: center;
+    margin-top: 1rem;
+  }
+  
+  
+  .register-message {
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+  
 .contact-box {
     position: fixed;
     bottom: 30px;
