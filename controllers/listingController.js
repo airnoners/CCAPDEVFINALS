@@ -70,34 +70,31 @@ const deleteListing = async (req, res) => {
         return res.status(404).json({ message: "Listing not found" });
       }
   
-      // Make sure the user owns this listing
+      // Check if the user is the seller
       if (String(listing.seller) !== String(req.user._id)) {
         return res.status(403).json({ message: "Unauthorized" });
       }
   
       const { title, description, price, category, condition } = req.body;
   
-      // Update fields
       listing.title = title;
       listing.description = description;
       listing.price = price;
       listing.category = category;
       listing.condition = condition;
   
-      // Update image if uploaded
       if (req.file) {
         listing.image = `/uploads/listings/${req.file.filename}`;
       }
   
       await listing.save();
-  
-      // Return success JSON so frontend JS can redirect
-      res.status(200).json({ message: "Listing updated", id: listing._id });
+      res.status(200).send(listing._id); // send ID so frontend can redirect to /product/:id
     } catch (err) {
-      console.error("❌ Error editing listing:", err);
-      res.status(500).json({ message: "Server error during edit" });
+      console.error("❌ Edit error:", err);
+      res.status(500).json({ message: "Server error" });
     }
   };
+  
   
 
 module.exports = {

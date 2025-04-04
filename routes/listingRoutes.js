@@ -61,8 +61,7 @@ router.post(
 );
 
 // POST update listing
-router.post(
-  '/:id/edit',
+router.post('/:id/edit',
   authController.requireAuth,
   upload.single('image'),
   listingController.editListing

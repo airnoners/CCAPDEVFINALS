@@ -122,7 +122,7 @@
     <h2> ⚠️ Confirm Deletion ⚠️</h2>
     <p>Are you sure you want to delete this listing?<br>This action cannot be undone.</p>
 
-    <form id="deleteForm" method="POST">
+    <form id="deleteForm" method="POST" action="">
       <div class="modal-actions">
         <button type="submit" class="btn delete-confirm-btn">Yes, Delete</button>
         <button type="button" id="cancelDeleteBtn" class="btn-cancel">Cancel</button>
@@ -187,6 +187,9 @@
 
 <div id="editListingPopup" class="popup success" style="display: none;"></div>
 
+<div id="deleteListingPopup" class="popup success" style="display: none;"></div>
+
+
 </section>
 
 <!-- JS -->
@@ -234,20 +237,46 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // 🔴 Delete modal logic
- const openDeleteBtn = document.getElementById("openDeleteModal");
+const openDeleteBtn = document.getElementById("openDeleteModal");
 const deleteModal = document.getElementById("deleteModal");
 const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
 const deleteForm = document.getElementById("deleteForm");
 
 if (openDeleteBtn && deleteModal && cancelDeleteBtn && deleteForm) {
+  // Open modal & set action
   openDeleteBtn.addEventListener("click", () => {
     const listingId = openDeleteBtn.dataset.id;
-    deleteForm.action = `/api/listings/${listingId}/delete`;  // ✅ sets route correctly
+    deleteForm.action = `/api/listings/${listingId}/delete`;
     deleteModal.style.display = "flex";
   });
 
+  // Cancel button
   cancelDeleteBtn.addEventListener("click", () => {
     deleteModal.style.display = "none";
+  });
+
+  // Handle actual delete request via fetch
+  deleteForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await fetch(deleteForm.action, {
+        method: 'POST',
+      });
+
+      if (res.ok) {
+        showPopup('🗑️ Listing deleted successfully!', 'success', 'deleteListingPopup');
+        deleteModal.style.display = "none";
+        setTimeout(() => {
+          window.location.href = '/profile'; // or '/browse'
+        }, 1500);
+      } else {
+        showPopup('❌ Failed to delete listing', 'error', 'deleteListingPopup');
+      }
+    } catch (err) {
+      console.error(err);
+      showPopup('❌ Server error during deletion', 'error', 'deleteListingPopup');
+    }
   });
 }
 
@@ -280,14 +309,16 @@ if (openDeleteBtn && deleteModal && cancelDeleteBtn && deleteForm) {
   document.getElementById('editCondition').value = editBtn.dataset.condition || '';
 
   // Optional: Set form action if you're submitting directly
-  document.getElementById('editListingForm').action = `/listing/${editBtn.dataset.id}/edit`;
-});
+  document.getElementById('editListingForm').action = `/api/listings/${editBtn.dataset.id}/edit`;
 
 });
 
+});
 
 
+//edit form logc
 
+const editModal = document.getElementById('editListingModal');
 const editForm = document.getElementById('editListingForm');
 
 editForm?.addEventListener('submit', async (e) => {
@@ -302,11 +333,11 @@ editForm?.addEventListener('submit', async (e) => {
       body: formData
     });
 
-    const result = await res.text(); // since your server likely returns a redirect or HTML
+    const result = await res.text(); // result is listing ID
     if (res.ok) {
       editModal.style.display = 'none';
       showPopup('✅ Listing updated successfully!', 'success', 'editListingPopup');
-      setTimeout(() => location.reload(), 1500); // or redirect
+      setTimeout(() => window.location.reload(), 1500);
     } else {
       showPopup('❌ Failed to update listing', 'error', 'editListingPopup');
     }
@@ -315,6 +346,7 @@ editForm?.addEventListener('submit', async (e) => {
     showPopup('❌ Server error. Please try again.', 'error', 'editListingPopup');
   }
 });
+
 
 
 function showPopup(message, type = 'success', popupId = 'editListingPopup') {
