@@ -36,8 +36,8 @@
 
 1. **Clone the repository**  
 ```bash
-git clone https://github.com/your-username/archers-market.git
-cd archers-market
+git clone https://github.com/airnoners/CCAPDEVFINALS.git
+cd CCAPDEVFINALS
 ```
 
 2. **Install dependencies**  
