@@ -48,9 +48,9 @@ npm install
 3. **Set up environment variables**  
 Create a `.env` file in the root with the following:
 ```
-MONGODB_URI=mongodb://localhost:27017/archersmarket
-SESSION_SECRET=supersecretkey
-NODE_ENV=development
+SESSION_SECRET=59c3541857e04dfcf3cbb82664b2689942c2854544586b0a41a6ec0db1abb4b5
+MONGO_URI=mongodb+srv://Rhyze:EthosLab89@rashde.rwumx.mongodb.net/archersmarket_db?retryWrites=true&w=majority
+
 ```
 
 
