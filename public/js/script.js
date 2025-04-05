@@ -104,10 +104,26 @@ function setupAuthForms() {
     document.getElementById('registerForm')?.addEventListener('submit', async (e) => {
       e.preventDefault();
       const form = e.target;
-  
-      if (form.password.value !== form.confirmPassword.value) {
-          showPopup('❌ Passwords do not match', 'error');
-          return;
+
+      const email = form.dlsuEmail.value;
+      const studentId = form.studentId.value;
+      const password = form.password.value;
+      const confirmPassword = form.confirmPassword.value;
+      
+
+      if (!/^[^@]+@dlsu\.edu\.ph$/.test(email)) {
+        showPopup('❌ Email must be a valid @dlsu.edu.ph address', 'error');
+        return;
+      }
+    
+      if (!/^\d{8}$/.test(studentId)) {
+        showPopup('❌ Student ID must be exactly 8 digits', 'error');
+        return;
+      }
+    
+      if (password !== confirmPassword) {
+        showPopup('❌ Passwords do not match', 'error');
+        return;
       }
   
       try {
