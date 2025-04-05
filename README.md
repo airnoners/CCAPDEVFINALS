@@ -53,19 +53,15 @@ SESSION_SECRET=supersecretkey
 NODE_ENV=development
 ```
 
-4. **Start MongoDB (if local)**  
-```bash
-mongod
-```
 
-5. **Run the server**
+4. **Run the server**
 ```bash
 npm start
 # or
 node server.js
 ```
 
-6. **Visit the site**
+5. **Visit the site**
 ```
 http://localhost:3000
 ```
